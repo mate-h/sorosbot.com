@@ -1,3 +1,27 @@
-:root {
-	font-family: system-ui, sans-serif;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'Inter';
+  font-weight: 100 900;
+  font-display: swap;
+  font-style: normal;
+  font-named-instance: 'Regular';
+  src: url("/Inter.var.woff2?v=3.18") format("woff2");
+}
+
+@font-face {
+  font-family: "SF Symbols";
+  font-weight: 500;
+  font-style: normal;
+  src: url("/SFSymbols-Medium.woff2") format("woff2");
+}
+
+a {
+	@apply text-blue-500;
+}
+
+a:hover {
+	@apply underline;
 }
