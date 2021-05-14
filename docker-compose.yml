@@ -13,6 +13,7 @@ services:
             - /var/run/docker.sock:/var/run/docker.sock:ro
         environment:
             - VIRTUAL_HOST=${HOST}
+            - GOOGLE_APPLICATION_CREDENTIALS=./google-cloud.json
     freqtrade:
         image: freqtradeorg/freqtrade:stable
         # image: freqtradeorg/freqtrade:develop
