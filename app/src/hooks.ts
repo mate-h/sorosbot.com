@@ -1,10 +1,36 @@
 import cookie from 'cookie';
 import { v4 as uuid } from '@lukeed/uuid';
 import type { Handle } from '@sveltejs/kit';
+import { app } from '$lib/firebase';
+import type { ServerResponse } from '@sveltejs/kit/types/hooks';
+const auth = app.auth();
 
 export const handle: Handle = async ({ request, render }) => {
 	const cookies = cookie.parse(request.headers.cookie || '');
 	request.locals.userid = cookies.userid || uuid();
+
+	let authorized = false;
+	const whitelist = ['/signin']
+	try {
+		const session = cookies.session;
+		if (session) {
+			request.locals.user = await auth.verifySessionCookie(session);
+			authorized = request.locals.user !== undefined;
+		}
+	}
+	catch (e) {
+		console.error(e);
+	}
+
+	if (!authorized && !whitelist.includes(request.path)) {
+		const response: ServerResponse = {
+			status: 302,
+			headers: {
+				location: '/signin'
+			}
+		};
+		return response;
+	}
 
 	// TODO https://github.com/sveltejs/kit/issues/1046
 	if (request.query.has('_method')) {
