@@ -122,7 +122,7 @@
 			href: string;
 			app?: boolean;
 		}[];
-		icon: keyof typeof lookup;
+		icon: any;
 	};
 	const folders: Folder[] = [
 		{
@@ -145,9 +145,9 @@
 
 <svelte:window on:pointerup={stop} on:pointermove={move} />
 
-<div class="fixed h-full border-r border-gray-100 bg-white overflow-hidden">
+<div class="fixed h-full border-r border-gray-100 bg-white">
 	<nav style={`width: ${width}rem`} class="h-full relative">
-		<div class="p-6">
+		<div class="p-6 overflow-hidden">
 			{#each folders as { name, items, icon }}
 				<p class="truncate text-gray-500 uppercase text-xs tracking-widest">
 					<Icon name={icon} />
@@ -169,7 +169,7 @@
 
 		<hr
 			on:pointerdown={follow}
-			class={`w-2 border-0 bg-opacity-5 hover:bg-blue-500 hover:bg-opacity-5 h-full transform translate-x-1 absolute top-0 right-0 ${
+			class={`w-2 border-0 bg-opacity-20 hover:bg-blue-500 hover:bg-opacity-20 h-full transform translate-x-1 absolute top-0 right-0 ${
 				following ? 'bg-blue-500' : ''
 			}`}
 		/>
