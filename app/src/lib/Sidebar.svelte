@@ -54,6 +54,10 @@
 	}
 	const shared = [
 		{
+			name: 'GitHub',
+			href: 'https://github.com/sorosbot-com/sorosbot.com'
+		},
+		{
 			name: 'Drive',
 			href: 'https://drive.google.com/drive/u/0/folders/1PcnaWJwOJTCUgqRCQWQANo6xfIawLfRV'
 		},
