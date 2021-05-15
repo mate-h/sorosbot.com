@@ -1,14 +1,12 @@
 <script context="module" lang="ts">
-	export const prerender = true;
+	import type { Load } from '@sveltejs/kit';
+
+	export const load: Load = async ({ page, fetch, session, context }) => {
+		if (page.path === '/') {
+			return {
+				status: 302,
+				redirect: '/console'
+			};
+		}
+	};
 </script>
-
-<svelte:head>
-	<title>Soros Bot</title>
-</svelte:head>
-
-<section>
-	<h1>Soros bot</h1>
-</section>
-
-<style>
-</style>

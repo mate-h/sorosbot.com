@@ -15,7 +15,7 @@ export const handle: Handle = async ({ request, render }) => {
 
 	// either authorization header or session cookie must be present and valid
 	let authorized = false;
-	const whitelist = ['/signin'];
+	const whitelist = ['/signin', '/signin/password-reset'];
 
 	// primary auth through authorization header
 	try {
@@ -47,6 +47,15 @@ export const handle: Handle = async ({ request, render }) => {
 			status: 302,
 			headers: {
 				location: '/signin'
+			}
+		};
+		return response;
+	}
+	else if (whitelist.includes(request.path)) {
+		const response: ServerResponse = {
+			status: 302,
+			headers: {
+				location: '/console'
 			}
 		};
 		return response;

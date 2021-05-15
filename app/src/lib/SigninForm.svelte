@@ -65,7 +65,7 @@
 		/>
 		<div class="mb-2 flex">
 			<CheckBox checked id="remember-me">Remember me</CheckBox>
-			<a class="text-sm ml-auto" href="/signin/reset-password">Reset password</a>
+			<a class="text-sm ml-auto" href="/signin/password-reset">Reset password</a>
 		</div>
 
 		<button
