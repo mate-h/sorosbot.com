@@ -12,7 +12,7 @@ services:
             - ./app:/etc/app
             - /var/run/docker.sock:/var/run/docker.sock:ro
         environment:
-            - VIRTUAL_HOST=${HOST}
+            - VIRTUAL_HOST=$roo{HOST}
             - GOOGLE_APPLICATION_CREDENTIALS=./google-cloud.json
             - FIREBASE_API_KEY=AIzaSyCwBM6pEe6m09J8hLco4Dzsc_9bDkxrpwg
     code-server:
