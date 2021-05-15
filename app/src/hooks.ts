@@ -51,15 +51,15 @@ export const handle: Handle = async ({ request, render }) => {
 		};
 		return response;
 	}
-	else if (whitelist.includes(request.path)) {
-		const response: ServerResponse = {
-			status: 302,
-			headers: {
-				location: '/console'
-			}
-		};
-		return response;
-	}
+	// else if (whitelist.includes(request.path)) {
+	// 	const response: ServerResponse = {
+	// 		status: 302,
+	// 		headers: {
+	// 			location: '/console'
+	// 		}
+	// 	};
+	// 	return response;
+	// }
 
 	// TODO https://github.com/sveltejs/kit/issues/1046
 	if (request.query.has('_method')) {
