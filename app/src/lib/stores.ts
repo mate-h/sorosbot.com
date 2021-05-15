@@ -4,8 +4,8 @@ export const navItems = [
     path: '/console'
   },
   {
-    name: 'Terminal',
-    path: '/console/terminal'
+    name: 'Code',
+    path: '/console/code'
   },
   {
     name: 'Docker',

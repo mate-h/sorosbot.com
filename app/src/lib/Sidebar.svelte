@@ -1,9 +1,7 @@
 <script lang="ts">
 	import { browser } from '$app/env';
 	import { createEventDispatcher } from 'svelte';
-	import { loop_guard } from 'svelte/internal';
 	import Icon from './Icon.svelte';
-	import lookup from './sf-symbol-table';
 
 	export let width = 16;
 	const dispatch = createEventDispatcher();
@@ -14,8 +12,12 @@
 	$: {
 		if (browser) {
 			if (following) {
-				document.body.classList.add('select-none');
-			} else document.body.classList.remove('select-none');
+				document.documentElement.style.cursor = 'ew-resize';
+				document.body.classList.add('pointer-events-none');
+			} else {
+				document.body.classList.remove('pointer-events-none');
+				document.documentElement.style.cursor = 'auto';
+			}
 		}
 	}
 	function follow(e: PointerEvent) {
@@ -167,7 +169,9 @@
 
 		<hr
 			on:pointerdown={follow}
-			class="w-2 border-0 hover:bg-blue-500 hover:bg-opacity-5 h-full transform translate-x-1 absolute top-0 right-0"
+			class={`w-2 border-0 bg-opacity-5 hover:bg-blue-500 hover:bg-opacity-5 h-full transform translate-x-1 absolute top-0 right-0 ${
+				following ? 'bg-blue-500' : ''
+			}`}
 		/>
 	</nav>
 </div>

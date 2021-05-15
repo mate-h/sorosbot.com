@@ -15,6 +15,19 @@ services:
             - VIRTUAL_HOST=${HOST}
             - GOOGLE_APPLICATION_CREDENTIALS=./google-cloud.json
             - FIREBASE_API_KEY=AIzaSyCwBM6pEe6m09J8hLco4Dzsc_9bDkxrpwg
+    code-server:
+        image: ghcr.io/linuxserver/code-server
+        container_name: code-server
+        environment:
+            - PUID=1000
+            - PGID=1000
+            - TZ=Europe/London
+            - PROXY_DOMAIN=dev.sorosbot.com #optional
+        volumes:
+            - ./dev/config:/config
+        ports:
+            - 8443:8443
+        restart: unless-stopped
     freqtrade:
         image: freqtradeorg/freqtrade:stable
         # image: freqtradeorg/freqtrade:develop

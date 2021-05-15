@@ -3,10 +3,10 @@
 	import Sidebar from '$lib/Sidebar.svelte';
 	let width = 16;
 	// bookmark has URL and list of tags
-	let style = `padding-left: ${width + 1.5}rem`;
+	let style = `padding-left: ${width}rem`;
 	function onchange(w) {
 		width = w.detail.width;
-		style = `padding-left: ${width + 1.5}rem`;
+		style = `padding-left: ${width}rem`;
 	}
 </script>
 
