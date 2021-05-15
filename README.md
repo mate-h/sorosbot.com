@@ -1,5 +1,4 @@
 # sorosbot.com
-MAY 2021
 
 ## Development tools
 See [./development-tools.md](./development-tools.md)
