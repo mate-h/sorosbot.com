@@ -1,5 +1,13 @@
-<script>
+<script lang="ts">
 	import Header from '$lib/Header/index.svelte';
+	import Sidebar from '$lib/Sidebar.svelte';
+	let width = 16;
+	// bookmark has URL and list of tags
+	let style = `padding-left: ${width + 1.5}rem`;
+	function onchange(w) {
+		width = w.detail.width;
+		style = `padding-left: ${width + 1.5}rem`;
+	}
 </script>
 
 <svelte:head>
@@ -8,24 +16,13 @@
 
 <Header />
 
-<nav class="border-r border-gray-100 bg-white h-full fixed">
-	<ul>
-		<li>
-			<a href="/console">Console</a>
-		</li>
-	</ul>
-</nav>
-<div>
+<Sidebar on:change={onchange} />
+
+<div {style}>
 	<slot />
 </div>
 
 <style>
-	nav {
-		width: 16rem;
-	}
-	div {
-		padding-left: 17.5rem;
-	}
 	:root {
 		@apply bg-gray-50;
 	}
