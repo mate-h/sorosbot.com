@@ -25,3 +25,9 @@ a {
 a:hover {
 	@apply underline;
 }
+
+input:-webkit-autofill::first-line,
+	textarea:-webkit-autofill::first-line {
+  @apply font-sans;
+  @apply text-sm;
+}

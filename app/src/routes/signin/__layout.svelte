@@ -1,7 +1,3 @@
-<script lang="ts">
-	import SigninForm from '$lib/SigninForm.svelte';
-</script>
-
 <svelte:head>
 	<title>Sign in - Soros Bot</title>
 </svelte:head>
@@ -9,7 +5,7 @@
 <section class="container mx-auto p-6">
 	<img class="mx-auto" src="/robot.png" alt="Small Robot" />
 	<h1 class="text-3xl font-medium text-center mb-4">Soros Bot</h1>
-	<SigninForm />
+	<slot />
 </section>
 
 <footer class="container mx-auto p-6">

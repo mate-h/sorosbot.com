@@ -1,11 +1,15 @@
 <script lang="ts">
 	import GoogleLogo from './GoogleLogo.svelte';
 	import CheckBox from './CheckBox.svelte';
+	import Loading from './Loading.svelte';
 	import { auth, authMessages } from './firebase-client';
 	import { signInWithPopup, GoogleAuthProvider, signInWithEmailAndPassword } from 'firebase/auth';
 
 	let error;
+	let loading = false;
 	async function submit(e: Event) {
+		error = '';
+		loading = true;
 		e.preventDefault();
 		const form = e.target as HTMLFormElement;
 		const data = new FormData(form);
@@ -24,6 +28,7 @@
 			}).then((r) => r.json());
 			error = user.email;
 		}
+		loading = false;
 	}
 
 	const handler = (e: Event) => {
@@ -32,7 +37,8 @@
 			console.log(r);
 		});
 	};
-	const inputComponent = 'text-sm border border-gray-300 rounded px-2 h-8 block mb-2';
+	const inputComponent =
+		'text-sm border border-gray-300 rounded px-2 h-8 block mb-2 appearance-none';
 </script>
 
 <div class="root rounded bg-white mx-auto p-6">
@@ -57,14 +63,19 @@
 			autocomplete="password"
 			placeholder="Password"
 		/>
-		<div class="mb-2">
+		<div class="mb-2 flex">
 			<CheckBox checked id="remember-me">Remember me</CheckBox>
+			<a class="text-sm ml-auto" href="/signin/reset-password">Reset password</a>
 		</div>
 
 		<button
+			disabled={loading}
 			class="rounded ml-auto block bg-blue-500 hover:bg-blue-400 text-white truncate text-sm font-medium px-2 h-8 transition ease-linear duration-75"
 			type="submit"
 		>
+			{#if loading}
+				<Loading class="inline-block" />
+			{/if}
 			Sign in
 		</button>
 	</form>
