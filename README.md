@@ -1,28 +1,32 @@
 # sorosbot.com
-M A Y   2 0 2 1
-Trading Bot Notes
-HFT Bots
+MAY 2021
+
+# Trading Bot Notes
+## HFT Bots
+
 High Frequency Trading bots exploit differences in asset value between markets, and within a market, as well as trade on a short term basis. 
 
-Design constraints
+## Design constraints
+
 The bot should be easy to interface with, e.g. though a webpage or messaging app such as telegram. 
 The list of supported markets should be the following:
-Bitmart — https://www.bitmart.com/ 
-Dex — https://dex.guru/ 
-Pancakeswap — https://pancakeswap.finance/
-Binance — https://binance.com/ 
+- Bitmart — https://www.bitmart.com/ 
+- Dex — https://dex.guru/ 
+- Pancakeswap — https://pancakeswap.finance/
+- Binance — https://binance.com/  
+- Nomics — https://nomics.com/  
 
-Bot Candidates
-Freqtrade - https://www.freqtrade.io/en/stable/ 
+## Bot Candidates
+Freqtrade - https://www.freqtrade.io/en/stable/  
 Pros
-Battle tested open source with 5M+ docker pulls
-Supports: Binance, Bittrex, FTX, Kraken, Bitvavo
-Supports 120 other markets potentially though https://github.com/ccxt/ccxt/ 
-Lots of features
+- Battle tested open source with 5M+ docker pulls
+- Supports: Binance, Bittrex, FTX, Kraken, Bitvavo
+- Supports 120 other markets potentially though https://github.com/ccxt/ccxt/ 
+- Lots of features
 Telegram integration
 Cons
-Existing implementation, high adoption rate
-Risk disclaimer
+- Existing implementation, high adoption rate
+- Risk disclaimer
 Adding Strategies - Step by step guide: https://github.com/freqtrade/freqtrade-strategies#how-to-install-a-strategy 
 Strategies - Detailed documentation:
 https://www.freqtrade.io/en/stable/strategy-customization/ 
