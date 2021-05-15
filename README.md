@@ -27,9 +27,9 @@ Telegram integration
 Cons
 - Existing implementation, high adoption rate
 - Risk disclaimer
-Adding Strategies - Step by step guide: https://github.com/freqtrade/freqtrade-strategies#how-to-install-a-strategy 
-Strategies - Detailed documentation:
-https://www.freqtrade.io/en/stable/strategy-customization/ 
+
+Adding Strategies - Step by step guide: https://github.com/freqtrade/freqtrade-strategies#how-to-install-a-strategy  
+Strategies - Detailed documentation: https://www.freqtrade.io/en/stable/strategy-customization/  
 TA Bots
 Technical analysis involves using real-world data to try to predict the future of the market. It involves looking at past statistics of the cryptocurrencies in question, including factors like volume and movement.
 evaluating the cryptocurrency’s inherent value - by patterns and analytic charting tools - determine strengths and weaknesses and then future patterns
@@ -39,17 +39,16 @@ Dex — https://dex.guru/ - dex
 Pancakeswap — https://pancakeswap.finance/ - dex
 Binance — https://binance.com/ - cheapest transaction fee
 
+## Bot Candidates
+Octobot - https://www.octobot.online  
+Pros  
+- Supports: Binance, Bitmex, BitMax, coinbase, KuCoin, Bitfinex, Bittrex
+- 120 other markets potentially though https://github.com/ccxt/ccxt/ 
+- Features: arbitrage, social trading, technical analysis (TA), social media processing or even external statistics management like google trends
 
-
-Bot Candidates
-Octobot - https://www.octobot.online
-Pros
-Supports: Binance, Bitmex, BitMax, coinbase, KuCoin, Bitfinex, Bittrex
-120 other markets potentially though https://github.com/ccxt/ccxt/ 
-Features: arbitrage, social trading, technical analysis (TA), social media processing or even external statistics management like google trends
-Cons
-Risk disclaimer
-Digital Ocean?
+Cons  
+- Risk disclaimer
+- Digital Ocean?
 
 Investment Strategies
 Whitelist and Blacklist target asset pairs to trade
