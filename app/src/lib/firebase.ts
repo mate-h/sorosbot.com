@@ -11,7 +11,8 @@ catch(e) {
   if (!browser){
     if (admin.apps) {
       app = admin.apps[0];
+      firestore = app.firestore();
     }
-    firestore = app.firestore();
+    
   }
 }
