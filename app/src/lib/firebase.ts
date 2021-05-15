@@ -9,7 +9,7 @@ try {
 }
 catch(e) {
   if (!browser){
-    app = admin.app();
+    app = admin.apps[0];
     firestore = app.firestore();
   }
 }
