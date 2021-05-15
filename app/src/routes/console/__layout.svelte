@@ -15,15 +15,15 @@
 		</li>
 	</ul>
 </nav>
-<section class="container mx-auto p-6">
-	<h1 class="text-3xl font-medium mb-4">Console</h1>
-</section>
+<div>
+	<slot />
+</div>
 
 <style>
 	nav {
 		width: 16rem;
 	}
-	section {
+	div {
 		padding-left: 17.5rem;
 	}
 	:root {
