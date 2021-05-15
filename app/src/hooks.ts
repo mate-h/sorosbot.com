@@ -8,18 +8,38 @@ const auth = app.auth();
 export const handle: Handle = async ({ request, render }) => {
 	const cookies = cookie.parse(request.headers.cookie || '');
 	request.locals.userid = cookies.userid || uuid();
+  const authHeader = request.headers.authorization || '';
+  if (authHeader.toLowerCase().includes('bearer')) {
+    request.locals.idToken = authHeader.split(' ')[1];
+  }
 
+	// either authorization header or session cookie must be present and valid
 	let authorized = false;
-	const whitelist = ['/signin']
+	const whitelist = ['/signin'];
+
+	// primary auth through authorization header
 	try {
-		const session = cookies.session;
-		if (session) {
-			request.locals.user = await auth.verifySessionCookie(session);
+		if (request.locals.idToken) {
+			request.locals.user = await auth.verifyIdToken(request.locals.idToken);
 			authorized = request.locals.user !== undefined;
 		}
 	}
 	catch (e) {
 		console.error(e);
+	}
+
+	// secondary auth through session cookie
+	if (!request.locals.user) {
+		try {
+			const session = cookies.session;
+			if (session) {
+				request.locals.user = await auth.verifySessionCookie(session);
+				authorized = request.locals.user !== undefined;
+			}
+		}
+		catch (e) {
+			console.error(e);
+		}
 	}
 
 	if (!authorized && !whitelist.includes(request.path)) {
