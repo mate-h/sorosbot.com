@@ -1,7 +1,11 @@
 # sorosbot.com
 
-## Development tools
+## Table of Contents
+### Development tools
 See [./development-tools.md](./development-tools.md)
+
+### Strategies
+See [./strategies.md](./strategies.md)
 
 # Trading Bot Notes
 ## HFT Bots
