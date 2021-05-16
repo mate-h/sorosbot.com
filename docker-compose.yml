@@ -75,6 +75,8 @@ services:
             - certs:/etc/nginx/certs:ro
             - ./nginx/error.html:/var/www/default/error.html:ro
             - ./nginx/conf.d/error.conf:/etc/nginx/conf.d/error.conf:ro
+            - ./nginx/conf.d/auth.conf:/etc/nginx/conf.d/auth.conf:ro
+            - ./nginx/vhost.d/default:/etc/nginx/vhost.d/default:ro
             - ./nginx/include:/etc/nginx/include:ro
         restart: always
     
