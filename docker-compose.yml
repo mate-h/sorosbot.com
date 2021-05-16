@@ -15,6 +15,22 @@ services:
             - VIRTUAL_HOST=${HOST}
             - GOOGLE_APPLICATION_CREDENTIALS=./google-cloud.json
             - FIREBASE_API_KEY=AIzaSyCwBM6pEe6m09J8hLco4Dzsc_9bDkxrpwg
+    api:
+        build: ./api
+        restart: unless-stopped
+        container_name: api
+        ports:
+            - "127.0.0.1:5000:5000"
+        volumes:
+            - conf:/etc/nginx/conf.d
+            - vhost:/etc/nginx/vhost.d
+            - certs:/etc/nginx/certs:ro
+            - ./api:/etc/app
+            - /var/run/docker.sock:/var/run/docker.sock:ro
+        environment:
+            - VIRTUAL_HOST=api.${HOST}
+            - GOOGLE_APPLICATION_CREDENTIALS=./google-cloud.json
+            - FIREBASE_API_KEY=AIzaSyCwBM6pEe6m09J8hLco4Dzsc_9bDkxrpwg
     code-server:
         image: ghcr.io/linuxserver/code-server
         container_name: code-server
@@ -23,13 +39,13 @@ services:
             - PGID=1000
             - TZ=Europe/London
             - PROXY_DOMAIN=code.sorosbot.com #optional
+            - VIRTUAL_HOST=code.${HOST}
         volumes:
             - ./dev/config:/config
         ports:
             - 127.0.0.1:8443:8443
         restart: unless-stopped
-        environment:
-            - VIRTUAL_HOST=code.${HOST}
+            
     freqtrade:
         image: freqtradeorg/freqtrade:stable
         # image: freqtradeorg/freqtrade:develop
@@ -74,9 +90,9 @@ services:
             - html:/usr/share/nginx/html
             - certs:/etc/nginx/certs:ro
             - ./nginx/error.html:/var/www/default/error.html:ro
-            - ./nginx/conf.d/error.conf:/etc/nginx/conf.d/error.conf:ro
-            - ./nginx/conf.d/auth.conf:/etc/nginx/conf.d/auth.conf:ro
+            - ./nginx/vhost.d/code.localhost:/etc/nginx/vhost.d/code.localhost:ro
             - ./nginx/vhost.d/default:/etc/nginx/vhost.d/default:ro
+            - ./nginx/conf.d/server.conf:/etc/nginx/conf.d/server.conf:ro
             - ./nginx/include:/etc/nginx/include:ro
         restart: always
     

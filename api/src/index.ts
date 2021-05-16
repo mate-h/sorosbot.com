@@ -6,6 +6,13 @@ const server = fastify({ logger: true });
 server.get('/', async (request, reply) => {
   return { hello: 'world' }
 })
+server.get('/auth', async (request, reply) => {
+  // validate request headers
+  // bearer token in authorization or session cookie
+  reply.code(200).send({
+    headers: request.headers
+  });
+})
 
 // Run the server!
 const start = async () => {
