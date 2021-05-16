@@ -43,6 +43,9 @@ https://mateh.signalwire.com/dashboard
 ### Container platform  
 Docker - https://www.docker.com/   
 
+NGINX Proxy  
+https://github.com/nginx-proxy/nginx-proxy  
+
 ### Domain and network management  
 CloudFlare  
 https://www.cloudflare.com/   
@@ -50,3 +53,8 @@ https://www.cloudflare.com/
 ### Purchasing domains  
 Google Domains - $12 for a .com address  
 https://domains.google.com/   
+
+## Documentation
+
+NGINX server configuration  
+https://www.digitalocean.com/community/tools/nginx  

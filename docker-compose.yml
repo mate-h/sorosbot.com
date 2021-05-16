@@ -4,7 +4,7 @@ services:
         restart: unless-stopped
         container_name: web
         ports:
-            - "3000:3000"
+            - "127.0.0.1:3000:3000"
         volumes:
             - conf:/etc/nginx/conf.d
             - vhost:/etc/nginx/vhost.d
@@ -12,7 +12,7 @@ services:
             - ./app:/etc/app
             - /var/run/docker.sock:/var/run/docker.sock:ro
         environment:
-            - VIRTUAL_HOST=$roo{HOST}
+            - VIRTUAL_HOST=${HOST}
             - GOOGLE_APPLICATION_CREDENTIALS=./google-cloud.json
             - FIREBASE_API_KEY=AIzaSyCwBM6pEe6m09J8hLco4Dzsc_9bDkxrpwg
     code-server:
@@ -22,12 +22,14 @@ services:
             - PUID=1000
             - PGID=1000
             - TZ=Europe/London
-            - PROXY_DOMAIN=dev.sorosbot.com #optional
+            - PROXY_DOMAIN=code.sorosbot.com #optional
         volumes:
             - ./dev/config:/config
         ports:
-            - 8443:8443
+            - 127.0.0.1:8443:8443
         restart: unless-stopped
+        environment:
+            - VIRTUAL_HOST=code.${HOST}
     freqtrade:
         image: freqtradeorg/freqtrade:stable
         # image: freqtradeorg/freqtrade:develop
@@ -49,7 +51,7 @@ services:
         # Please read the https://www.freqtrade.io/en/latest/rest-api/ documentation
         # before enabling this.
         ports:
-            - "8080:8080"
+            - 127.0.0.1:8080:8080
         # Default command used when running `docker compose up`
         command: >
             trade
@@ -71,6 +73,9 @@ services:
             - vhost:/etc/nginx/vhost.d
             - html:/usr/share/nginx/html
             - certs:/etc/nginx/certs:ro
+            - ./nginx/error.html:/var/www/default/error.html:ro
+            - ./nginx/conf.d/error.conf:/etc/nginx/conf.d/error.conf:ro
+            - ./nginx/include:/etc/nginx/include:ro
         restart: always
     
     docker-gen:
