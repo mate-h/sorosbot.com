@@ -4,6 +4,7 @@ import type { Handle } from '@sveltejs/kit';
 import type { ServerResponse } from '@sveltejs/kit/types/hooks';
 import { prerendering } from '$app/env';
 import { apiHost } from '$lib/config';
+console.log('API host', apiHost);
 
 export const handle: Handle = async ({ request, render }) => {
 	const cookies = cookie.parse(request.headers.cookie || '');
