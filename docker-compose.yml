@@ -90,8 +90,7 @@ services:
             - html:/usr/share/nginx/html
             - certs:/etc/nginx/certs:ro
             - ./nginx/error.html:/var/www/default/error.html:ro
-            - ./nginx/vhost.d/code.localhost:/etc/nginx/vhost.d/code.localhost:ro
-            - ./nginx/vhost.d/default:/etc/nginx/vhost.d/default:ro
+            - ./nginx/vhost.d:/etc/nginx/vhost.d
             - ./nginx/conf.d/server.conf:/etc/nginx/conf.d/server.conf:ro
             - ./nginx/include:/etc/nginx/include:ro
         restart: always
