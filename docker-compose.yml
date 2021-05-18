@@ -18,6 +18,7 @@ services:
             - HOST=http://sorosbot.com
             - API_HOST=http://api.sorosbot.com
             - CODE_HOST=http://freqtrade.sorosbot.com
+    api:
         build: ./api
         restart: unless-stopped
         container_name: api
