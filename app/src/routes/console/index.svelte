@@ -4,7 +4,7 @@
 <section class="container mx-auto p-6">
 	<h1 class="text-3xl font-medium mb-4">Console</h1>
 
-	<div class="bg-white rounded  p-6">
+	<div class="bg-white rounded p-6 dark:bg-gray-900 ">
 		<h2 class="text-2xl font-medium mb-4">Profit</h2>
 
 		<h3 class="text-lg font-medium">0.00148109 BTC</h3>

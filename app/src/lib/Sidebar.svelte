@@ -149,7 +149,7 @@
 
 <svelte:window on:pointerup={stop} on:pointermove={move} />
 
-<div class="fixed h-full border-r border-gray-100 bg-white">
+<div class="fixed h-full border-r border-gray-100 bg-white dark:bg-gray-900 dark:border-gray-500">
 	<nav style={`width: ${width}rem`} class="h-full relative">
 		<div class="p-6 overflow-hidden">
 			{#each folders as { name, items, icon }}

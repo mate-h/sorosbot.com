@@ -27,13 +27,13 @@
 <section class="container mx-auto p-6">
 	<h1 class="text-3xl font-medium mb-4">Docker</h1>
 
-	<div class="bg-white rounded  p-6">
+	<div class="bg-white rounded dark:bg-gray-900 p-6">
 		<h1 class="text-2xl font-medium mb-4">Instances</h1>
 		{#each instances as { name, image, container_name, volumes, ports, command, environment }}
 			<h2 class="text-lg font-medium mb-4">{name}</h2>
 			<p>
 				<span class="mr-2 text-gray-400">Status</span><span
-					class="bg-green-50 text-green-500 px-2 rounded"
+					class="bg-green-900 text-green-500 px-2 rounded"
 					><Icon class="text-xs mr-1" name="circle.fill" />Online</span
 				>
 			</p>

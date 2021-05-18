@@ -4,6 +4,8 @@
 	import Loading from './Loading.svelte';
 	import { auth, authMessages } from './firebase-client';
 	import { signInWithPopup, GoogleAuthProvider, signInWithEmailAndPassword } from 'firebase/auth';
+	import { user } from './stores';
+	import { goto } from '$app/navigation';
 
 	let error;
 	let loading = false;
@@ -20,13 +22,14 @@
 		});
 		if (credential) {
 			const idToken = await credential.user.getIdToken();
-			const user = await fetch('/api/session', {
+			const cred = await fetch('/api/session', {
 				method: 'post',
 				headers: {
 					Authorization: `Bearer ${idToken}`
 				}
 			}).then((r) => r.json());
-			error = user.email;
+			user.set(cred.user);
+			goto('/console');
 		}
 		loading = false;
 	}
@@ -41,7 +44,7 @@
 		'text-sm border border-gray-300 rounded px-2 h-8 block mb-2 appearance-none';
 </script>
 
-<div class="root rounded bg-white mx-auto p-6">
+<div class="root rounded bg-white mx-auto p-6 text-black">
 	{#if error}
 		<p class="bg-red-100 text-red-500 rounded mb-2 px-2 py-1 text-xs">{error}</p>
 	{/if}

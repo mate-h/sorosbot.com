@@ -1,9 +1,13 @@
+<script>
+	import Robot from '$lib/Robot.svelte';
+</script>
+
 <svelte:head>
 	<title>Sign in - Soros Bot</title>
 </svelte:head>
 
 <section class="container mx-auto p-6">
-	<img class="mx-auto" src="/robot.svg" alt="Small Robot" />
+	<Robot class="mx-auto" height="220px" />
 	<h1 class="text-3xl font-medium text-center mb-4">Soros Bot</h1>
 	<slot />
 </section>
@@ -16,12 +20,6 @@
 </footer>
 
 <style>
-	img {
-		height: 160px;
-	}
-	:root {
-		@apply bg-gray-50;
-	}
 	section,
 	footer {
 		max-width: 24rem;
