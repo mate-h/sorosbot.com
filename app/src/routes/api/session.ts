@@ -1,8 +1,6 @@
+import { apiHost, cookieDomain } from "$lib/config";
 import type { RequestHandler } from "@sveltejs/kit";
 import fetch from 'node-fetch';
-
-const apiHost = 'http://localhost:5000';
-const cookieDomain = 'localhost';
 
 export const post: RequestHandler = async ({ headers }) => {
   const result = await fetch(`${apiHost}/session`, {

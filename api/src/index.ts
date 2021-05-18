@@ -81,7 +81,6 @@ server.post("/session", async (request, reply) => {
 
   reply
     .code(200)
-    .header("set-cookie", `session=${session}; Domain=localhost; Path=/; HttpOnly`)
     .send({ user, customToken, idToken, session });
 });
 

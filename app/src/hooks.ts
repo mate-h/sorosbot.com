@@ -2,6 +2,8 @@ import cookie from 'cookie';
 import { v4 as uuid } from '@lukeed/uuid';
 import type { Handle } from '@sveltejs/kit';
 import type { ServerResponse } from '@sveltejs/kit/types/hooks';
+import { prerendering } from '$app/env';
+import { apiHost } from '$lib/config';
 
 export const handle: Handle = async ({ request, render }) => {
 	const cookies = cookie.parse(request.headers.cookie || '');
@@ -13,10 +15,11 @@ export const handle: Handle = async ({ request, render }) => {
 
 	// either authorization header or session cookie must be present and valid
 	let authorized = false;
+	if (prerendering) authorized = true;
 	const whitelist = ['/signin', '/signin/password-reset'];
 
 	try {
-		const result = await fetch('http://localhost:5000/auth', {headers: request.headers}).then(r => r.json());
+		const result = await fetch(`${apiHost}/auth`, {headers: request.headers}).then(r => r.json());
 		authorized = result.user !== undefined;
 	} catch(e) {
 		console.error(e);

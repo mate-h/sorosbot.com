@@ -1,5 +1,7 @@
 <script>
-	const src = 'http://localhost:8443';
+	import { codeHost } from '$lib/config';
+
+	const src = codeHost;
 </script>
 
 <iframe {src} title="Visual Studio Code" />
