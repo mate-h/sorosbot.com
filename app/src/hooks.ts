@@ -16,7 +16,7 @@ export const handle: Handle = async ({ request, render }) => {
 	// either authorization header or session cookie must be present and valid
 	let authorized = false;
 	if (prerendering) authorized = true;
-	const whitelist = ['/signin', '/signin/password-reset'];
+	const whitelist = ['/signin', '/signin/password-reset', '/api/session'];
 
 	try {
 		const result = await fetch(`${apiHost}/auth`, {headers: request.headers}).then(r => r.json());
