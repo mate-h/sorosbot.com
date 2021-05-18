@@ -1,9 +1,7 @@
 import cookie from 'cookie';
 import { v4 as uuid } from '@lukeed/uuid';
 import type { Handle } from '@sveltejs/kit';
-import { app } from '$lib/firebase';
 import type { ServerResponse } from '@sveltejs/kit/types/hooks';
-const auth = app.auth();
 
 export const handle: Handle = async ({ request, render }) => {
 	const cookies = cookie.parse(request.headers.cookie || '');
@@ -17,29 +15,11 @@ export const handle: Handle = async ({ request, render }) => {
 	let authorized = false;
 	const whitelist = ['/signin', '/signin/password-reset'];
 
-	// primary auth through authorization header
 	try {
-		if (request.locals.idToken) {
-			request.locals.user = await auth.verifyIdToken(request.locals.idToken);
-			authorized = request.locals.user !== undefined;
-		}
-	}
-	catch (e) {
+		const result = await fetch('http://localhost:5000/auth', {headers: request.headers}).then(r => r.json());
+		authorized = result.user !== undefined;
+	} catch(e) {
 		console.error(e);
-	}
-
-	// secondary auth through session cookie
-	if (!request.locals.user) {
-		try {
-			const session = cookies.session;
-			if (session) {
-				request.locals.user = await auth.verifySessionCookie(session);
-				authorized = request.locals.user !== undefined;
-			}
-		}
-		catch (e) {
-			console.error(e);
-		}
 	}
 
 	if (!authorized && !whitelist.includes(request.path)) {

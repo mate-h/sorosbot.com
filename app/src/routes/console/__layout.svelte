@@ -21,9 +21,3 @@
 <div {style}>
 	<slot />
 </div>
-
-<style>
-	:root {
-		@apply bg-gray-50;
-	}
-</style>
