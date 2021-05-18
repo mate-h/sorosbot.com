@@ -102,8 +102,8 @@ services:
             - nginx-proxy
         volumes:
             - conf:/etc/nginx/conf.d
-            - vhost:/etc/nginx/vhost.d
             - certs:/etc/nginx/certs:ro
+            - ./nginx/vhost.d:/etc/nginx/vhost.d
             - ./nginx/nginx.tmpl:/etc/docker-gen/templates/nginx.tmpl:ro
             - /var/run/docker.sock:/tmp/docker.sock:ro
         restart: always
