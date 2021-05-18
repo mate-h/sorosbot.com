@@ -20,7 +20,10 @@ export const handle: Handle = async ({ request, render }) => {
 	const whitelist = ['/signin', '/signin/password-reset', '/api/session'];
 
 	try {
-		const result = await fetch(`${apiHost}/auth`, {headers: request.headers}).then(r => r.json());
+		const result = await fetch(`${apiHost}/auth`, {headers: request.headers}).then(async r => {
+			console.log(r.ok, await r.text());
+			return r;
+		}).then(r => r.json());
 		authorized = result.user !== undefined;
 	} catch(e) {
 		console.error(e);
