@@ -86,7 +86,6 @@ services:
             - "443:443"
         volumes:
             - conf:/etc/nginx/conf.d
-            - vhost:/etc/nginx/vhost.d
             - html:/usr/share/nginx/html
             - certs:/etc/nginx/certs:ro
             - ./nginx/error.html:/var/www/default/error.html:ro
