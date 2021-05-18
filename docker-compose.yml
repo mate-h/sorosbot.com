@@ -15,10 +15,9 @@ services:
             - VIRTUAL_HOST=${HOST}
             - GOOGLE_APPLICATION_CREDENTIALS=./google-cloud.json
             - FIREBASE_API_KEY=AIzaSyCwBM6pEe6m09J8hLco4Dzsc_9bDkxrpwg
-            - HOST=http://localhost:3000
-            - API_HOST=http://localhost:5000
-            - CODE_HOST=http://localhost:8443
-    api:
+            - HOST=http://sorosbot.com
+            - API_HOST=http://api.sorosbot.com
+            - CODE_HOST=http://freqtrade.sorosbot.com
         build: ./api
         restart: unless-stopped
         container_name: api
