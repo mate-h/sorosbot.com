@@ -39,37 +39,8 @@
             "enableRateLimit": true,
             "rateLimit": 200
         },
-        "pair_whitelist": [
-            "ALGO/BTC",
-            "ATOM/BTC",
-            "BAT/BTC",
-            "BCH/BTC",
-            "BRD/BTC",
-            "EOS/BTC",
-            "ETH/BTC",
-            "IOTA/BTC",
-            "LINK/BTC",
-            "LTC/BTC",
-            "NEO/BTC",
-            "NXS/BTC",
-            "XMR/BTC",
-            "XRP/BTC",
-            "XTZ/BTC"
-        ],
-        "pair_blacklist": [
-            "BNB/BTC",
-            "BNB/BUSD",
-            "BNB/ETH",
-            "BNB/EUR",
-            "BNB/NGN",
-            "BNB/PAX",
-            "BNB/RUB",
-            "BNB/TRY",
-            "BNB/TUSD",
-            "BNB/USDC",
-            "BNB/USDS",
-            "BNB/USDT"
-        ]
+        "pair_whitelist": ["LTC/BTC","XRP/BTC","DOGE/BTC","XLM/BTC","ETH/BTC","BCH/BTC","BNB/BTC","LINK/BTC","ADA/BTC","USD/BTC","AUD/BTC","BRL/BTC","CAD/BTC","CHF/BTC","CLP/BTC","CNY/BTC","CZK/BTC","DKK/BTC","EUR/BTC","GBP/BTC","HKD/BTC","HUF/BTC","IDR/BTC","ILS/BTC","INR/BTC","JPY/BTC","KRW/BTC","MXN/BTC","MYR/BTC","NOK/BTC","NZD/BTC","PHP/BTC","PKR/BTC","PLN/BTC","RUB/BTC","SEK/BTC","SGD/BTC","THB/BTC","TRY/BTC","TWD/BTC","ZAR/BTC","AED/BTC","BGN/BTC","HRK/BTC","MUR/BTC","RON/BTC","ISK/BTC","NGN/BTC","COP/BTC","ARS/BTC","PEN/BTC","VND/BTC","UAH/BTC","BOB/BTC","ALL/BTC","AMD/BTC","AZN/BTC","BAM/BTC","BDT/BTC","BHD/BTC","BMD/BTC","BYN/BTC","CRC/BTC","CUP/BTC","DOP/BTC","DZD/BTC","EGP/BTC","GEL/BTC","GHS/BTC","GTQ/BTC","HNL/BTC","IQD/BTC","IRR/BTC","JMD/BTC","JOD/BTC","KES/BTC","KGS/BTC","KHR/BTC","KWD/BTC","KZT/BTC","LBP/BTC","LKR/BTC","MAD/BTC","MDL/BTC","MKD/BTC","MMK/BTC","MNT/BTC","NAD/BTC","NIO/BTC","NPR/BTC","OMR/BTC","PAB/BTC","QAR/BTC","RSD/BTC","SAR/BTC","SSP/BTC","TND/BTC","TTD/BTC","UGX/BTC","UYU/BTC","UZS/BTC","VES/BTC","DOT/BTC","UNI/BTC","SATS/BTC","BITS/BTC"],
+        "pair_blacklist": []
     },
     "pairlists": [
         {"method": "StaticPairList"}
