@@ -77,8 +77,8 @@ class SampleStrategy(IStrategy):
     # trailing_stop_positive_offset = 0.0  # Disabled / not configured
 
     # Hyperoptable parameters
-    buy_rsi = IntParameter(low=1, high=50, default=buy_params.buy_rsi, space='buy', optimize=True, load=True)
-    sell_rsi = IntParameter(low=50, high=100, default=sell_params.sell_rsi, space='sell', optimize=True, load=True)
+    buy_rsi = IntParameter(low=1, high=50, default=buy_params['buy_rsi'], space='buy', optimize=True, load=True)
+    sell_rsi = IntParameter(low=50, high=100, default=sell_params['sell_rsi'], space='sell', optimize=True, load=True)
 
     # Optimal timeframe for the strategy.
     timeframe = '5m'
