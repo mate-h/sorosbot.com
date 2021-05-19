@@ -47,24 +47,24 @@ class SampleStrategy(IStrategy):
 
     # Buy hyperspace params:
     buy_params = {
-        'buy_rsi': 18
+     'buy_rsi': 20
     }
 
     # Sell hyperspace params:
     sell_params = {
-        'sell_rsi': 93
+     'sell_rsi': 72
     }
 
     # ROI table:
     minimal_roi = {
-        "0": 0.093,
-        "31": 0.068,
-        "73": 0.031,
-        "184": 0
+        "0": 0.262,
+        "21": 0.074,
+        "81": 0.039,
+        "171": 0
     }
 
     # Stoploss:
-    stoploss = -0.334
+    stoploss = -0.35
 
     # Optimal stoploss designed for the strategy.
     # This attribute will be overridden if the config file contains "stoploss".
