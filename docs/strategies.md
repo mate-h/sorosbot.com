@@ -1,6 +1,5 @@
 ## Stratégiák
 
-### Áron stratégia
 Indikátorok
 - 50 napos mozgó átlag
 - 200 napos mozgó átlag
@@ -31,19 +30,4 @@ Hyperopt-al megállapítani az optimális RSI ablakot, és ezt több ROI beáll�
 
 A top 100 trading pár az dinamikusan változik a backtest alatt (és élőben is). A total volume alapján van rangsorolva az adott időpontban.
 
-### Domi stratégia
-ATH (All time High) után ne vásároljon - Stohastic Average Nagy ablakkal  
-Ha gyorsan nő felfele, és áll egy helyben az ár egy ideig akkor eladja  
-Stohastic Average Indicator - Mozgó Átlag  
-Ha derivált (meredekség) az közel nulla, akkor ROI 1-2%  
-Alaból a nagy változásoknál pedig ROI 10%  
-
-```python
-parameters = {
-  stohastic: {
-    short: '15m',
-    long: '3d',   # all time high indicator window
-  },
-  max_roi: 0.1,  # 10% 
-  min_roi: 0.01, # 1% 
-}
+Úgy lehet visszaforgatni a pénzt, hogy ahogy nő az egyenleg, úgy dinamikusan emelkedik a max_open_trades és a stake_amount paraméter. Nem csak live, hanem a backtest alatt is.
