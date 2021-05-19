@@ -1,7 +1,7 @@
 {
     "max_open_trades": 10,
-    "stake_currency": "BTC",
-    "stake_amount": 0.004,
+    "stake_currency": "USDT",
+    "stake_amount": 180,
     "tradable_balance_ratio": 0.99,
     "fiat_display_currency": "USD",
     "timeframe": "5m",
