@@ -39,15 +39,36 @@ class SampleStrategy(IStrategy):
 
     # Minimal ROI designed for the strategy.
     # This attribute will be overridden if the config file contains "minimal_roi".
-    minimal_roi = {
-        "60": 0.1,
-        "30": 0.2,
-        "0": 0.4
+    # minimal_roi = {
+    #     "60": 0.1,
+    #     "30": 0.2,
+    #     "0": 0.4
+    # }
+
+    # Buy hyperspace params:
+    buy_params = {
+        'buy_rsi': 18
     }
+
+    # Sell hyperspace params:
+    sell_params = {
+        'sell_rsi': 93
+    }
+
+    # ROI table:
+    minimal_roi = {
+        "0": 0.093,
+        "31": 0.068,
+        "73": 0.031,
+        "184": 0
+    }
+
+    # Stoploss:
+    stoploss = -0.334
 
     # Optimal stoploss designed for the strategy.
     # This attribute will be overridden if the config file contains "stoploss".
-    stoploss = -0.10
+    # stoploss = -0.10
 
     # Trailing stoploss
     trailing_stop = False
@@ -56,8 +77,8 @@ class SampleStrategy(IStrategy):
     # trailing_stop_positive_offset = 0.0  # Disabled / not configured
 
     # Hyperoptable parameters
-    buy_rsi = IntParameter(low=1, high=50, default=30, space='buy', optimize=True, load=True)
-    sell_rsi = IntParameter(low=50, high=100, default=70, space='sell', optimize=True, load=True)
+    buy_rsi = IntParameter(low=1, high=50, default=buy_params.buy_rsi, space='buy', optimize=True, load=True)
+    sell_rsi = IntParameter(low=50, high=100, default=sell_params.sell_rsi, space='sell', optimize=True, load=True)
 
     # Optimal timeframe for the strategy.
     timeframe = '5m'
