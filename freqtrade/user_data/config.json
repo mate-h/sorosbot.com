@@ -1,7 +1,7 @@
 {
     "max_open_trades": 10,
     "stake_currency": "USDT",
-    "stake_amount": 100,
+    "stake_amount": 15,
     "tradable_balance_ratio": 0.99,
     "fiat_display_currency": "USD",
     "timeframe": "5m",
@@ -39,7 +39,7 @@
             "enableRateLimit": true,
             "rateLimit": 200
         },
-        "pair_whitelist": ["BTC/USDT", "ETH/USDT", "BNB/USDT", "DOGE/USDT", "ADA/USDT", "XRP/USDT", "DOT/USDT", "LTC/USDT", "UNI/USDT", "LINK/USDT", "MATIC/USDT", "VET/USDT", "TRX/USDT", "FIL/USDT", "XMR/USDT", "NEO/USDT", "MKR/USDT", "CAKE/USDT", "CRO/USDT", "CHZ/USDT", "TEL/USDT", "ZIL/USDT", "ONE/USDT", "ONT/USDT", "SC/USDT", "BAKE/USDT", "ZEN/USDT", "1INCH/USDT", "IOST/USDT", "DENT/USDT", "NANO/USDT", "REV/USDT", "ETC/USDT"],
+        "pair_whitelist": ["BTC/USDT", "ETH/USDT", "BNB/USDT", "DOGE/USDT", "ADA/USDT", "XRP/USDT", "DOT/USDT", "LTC/USDT", "UNI/USDT", "LINK/USDT", "MATIC/USDT", "VET/USDT", "TRX/USDT", "FIL/USDT", "XMR/USDT", "NEO/USDT", "MKR/USDT", "CAKE/USDT", "CHZ/USDT", "ZIL/USDT", "ONE/USDT", "ONT/USDT", "SC/USDT", "BAKE/USDT", "ZEN/USDT", "1INCH/USDT", "IOST/USDT", "DENT/USDT", "NANO/USDT", "ETC/USDT"],
         "pair_blacklist": []
     },
     "pairlists": [
