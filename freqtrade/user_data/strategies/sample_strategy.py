@@ -355,8 +355,8 @@ class SampleStrategy(IStrategy):
         dataframe.loc[
             (
                 # Signal: RSI crosses above 30
-                (qtpylib.crossed_above(dataframe['srsi_k'], 40)) &
-                (qtpylib.crossed_above(dataframe['srsi_d'], 40)) &
+                (qtpylib.crossed_above(dataframe['srsi_k'], self.buy_rsi.value)) &
+                (qtpylib.crossed_above(dataframe['srsi_d'], self.buy_rsi.value)) &
                 # (qtpylib.crossed_above(dataframe['rsi'], self.buy_rsi.value)) &
                 (dataframe['tema'] <= dataframe['bb_middleband']) &  # Guard: tema below BB middle
                 (dataframe['tema'] > dataframe['tema'].shift(1)) &  # Guard: tema is raising
@@ -377,8 +377,8 @@ class SampleStrategy(IStrategy):
         dataframe.loc[
             (
                 # Signal: RSI crosses above 70
-                (qtpylib.crossed_above(dataframe['srsi_k'], 70)) &
-                (qtpylib.crossed_above(dataframe['srsi_d'], 70)) &
+                (qtpylib.crossed_above(dataframe['srsi_k'], self.sell_rsi.value)) &
+                (qtpylib.crossed_above(dataframe['srsi_d'], self.sell_rsi.value)) &
                 # (qtpylib.crossed_above(dataframe['rsi'], self.sell_rsi.value)) &
                 (dataframe['tema'] > dataframe['bb_middleband']) &  # Guard: tema above BB middle - triple exponential moving average (TEMA)
                 (dataframe['tema'] < dataframe['tema'].shift(1)) &  # Guard: tema is falling
