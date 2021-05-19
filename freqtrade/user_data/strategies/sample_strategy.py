@@ -40,9 +40,9 @@ class SampleStrategy(IStrategy):
     # Minimal ROI designed for the strategy.
     # This attribute will be overridden if the config file contains "minimal_roi".
     minimal_roi = {
-        "60": 0.01,
-        "30": 0.02,
-        "0": 0.04
+        "60": 0.1,
+        "30": 0.2,
+        "0": 0.4
     }
 
     # Optimal stoploss designed for the strategy.
@@ -196,6 +196,12 @@ class SampleStrategy(IStrategy):
         # stoch_rsi = ta.STOCHRSI(dataframe)
         # dataframe['fastd_rsi'] = stoch_rsi['fastd']
         # dataframe['fastk_rsi'] = stoch_rsi['fastk']
+        period = 14
+        smoothD = 3
+        SmoothK = 3
+        stochrsi  = (dataframe['rsi'] - dataframe['rsi'].rolling(period).min()) / (dataframe['rsi'].rolling(period).max() - dataframe['rsi'].rolling(period).min())
+        dataframe['srsi_k'] = stochrsi.rolling(SmoothK).mean() * 100
+        dataframe['srsi_d'] = dataframe['srsi_k'].rolling(smoothD).mean()
 
         # MACD
         macd = ta.MACD(dataframe)
@@ -344,10 +350,14 @@ class SampleStrategy(IStrategy):
         :param metadata: Additional information, like the currently traded pair
         :return: DataFrame with buy column
         """
+
+        # Buy signal: STOCH RSI crosses above 40
         dataframe.loc[
             (
                 # Signal: RSI crosses above 30
-                (qtpylib.crossed_above(dataframe['rsi'], self.buy_rsi.value)) &
+                (qtpylib.crossed_above(dataframe['srsi_k'], 40)) &
+                (qtpylib.crossed_above(dataframe['srsi_d'], 40)) &
+                # (qtpylib.crossed_above(dataframe['rsi'], self.buy_rsi.value)) &
                 (dataframe['tema'] <= dataframe['bb_middleband']) &  # Guard: tema below BB middle
                 (dataframe['tema'] > dataframe['tema'].shift(1)) &  # Guard: tema is raising
                 (dataframe['volume'] > 0)  # Make sure Volume is not 0
@@ -363,11 +373,14 @@ class SampleStrategy(IStrategy):
         :param metadata: Additional information, like the currently traded pair
         :return: DataFrame with sell column
         """
+        # Sell signal: STOCH RSI crosses above 70
         dataframe.loc[
             (
                 # Signal: RSI crosses above 70
-                (qtpylib.crossed_above(dataframe['rsi'], self.sell_rsi.value)) &
-                (dataframe['tema'] > dataframe['bb_middleband']) &  # Guard: tema above BB middle
+                (qtpylib.crossed_above(dataframe['srsi_k'], 70)) &
+                (qtpylib.crossed_above(dataframe['srsi_d'], 70)) &
+                # (qtpylib.crossed_above(dataframe['rsi'], self.sell_rsi.value)) &
+                (dataframe['tema'] > dataframe['bb_middleband']) &  # Guard: tema above BB middle - triple exponential moving average (TEMA)
                 (dataframe['tema'] < dataframe['tema'].shift(1)) &  # Guard: tema is falling
                 (dataframe['volume'] > 0)  # Make sure Volume is not 0
             ),
