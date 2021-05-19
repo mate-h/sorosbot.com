@@ -17,3 +17,7 @@ parameters = {
   min_roi: 0.01, # 1% 
 }
 ```
+
+
+###
+Amit tegnap csináltunk az miért nincs itt? :(
