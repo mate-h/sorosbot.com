@@ -2,10 +2,10 @@
 
 ## Table of Contents
 ### Development tools
-See [./development-tools.md](./development-tools.md)
+See [./docs/development-tools.md](./docs/development-tools.md)
 
 ### Strategies
-See [./strategies.md](./strategies.md)
+See [./docs/strategies.md](./docs/strategies.md)
 
 # Trading Bot Notes
 ## HFT Bots
