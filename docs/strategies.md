@@ -50,4 +50,4 @@ Hozzunk létre egy új indikátort, ami ML alapú. Ezt a modellt úgy tudjuk bet
 
 pl BTC/USDT egy hónapra visszamenőleg a Binance-en. 
 
-Ha a RSI alapú signal az egyezik az ML eredményével, és ez azt jelenti hogy erős a signal. Az erős signal-ok esetében nem feltétlen kell a guard. 
+Ha a RSI alapú signal egyezik az ML eredményével, az azt jelenti hogy erős a signal. Az erős signal-ok esetében nem feltétlen kell a guard. (backtest)
