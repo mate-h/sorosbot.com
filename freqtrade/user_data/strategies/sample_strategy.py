@@ -372,10 +372,10 @@ class SampleStrategy(IStrategy):
         :return: DataFrame with buy column
         """
 
-        # Buy signal: STOCH RSI crosses above 40
+        # Buy signal: STOCH RSI crosses above 20
         dataframe.loc[
             (
-                # Signal: RSI crosses above 30
+                # Signal: RSI crosses above 20
                 (qtpylib.crossed_above(dataframe['srsi_k'], self.buy_rsi.value)) &
                 (qtpylib.crossed_above(dataframe['srsi_d'], self.buy_rsi.value)) &
                 # (qtpylib.crossed_above(dataframe['rsi'], self.buy_rsi.value)) &
@@ -394,10 +394,10 @@ class SampleStrategy(IStrategy):
         :param metadata: Additional information, like the currently traded pair
         :return: DataFrame with sell column
         """
-        # Sell signal: STOCH RSI crosses above 70
+        # Sell signal: STOCH RSI crosses above 72
         dataframe.loc[
             (
-                # Signal: RSI crosses above 70
+                # Signal: RSI crosses above 72
                 (qtpylib.crossed_above(dataframe['srsi_k'], self.sell_rsi.value)) &
                 (qtpylib.crossed_above(dataframe['srsi_d'], self.sell_rsi.value)) &
                 # (qtpylib.crossed_above(dataframe['rsi'], self.sell_rsi.value)) &
