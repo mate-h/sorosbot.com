@@ -1,11 +1,14 @@
 # sorosbot.com
 
 ## Table of Contents
-### Development tools
-See [./docs/development-tools.md](./docs/development-tools.md)
 
-### Strategies
-See [./docs/strategies.md](./docs/strategies.md)
+[Development tools](./docs/development-tools.md)  
+[Strategies](./docs/strategies.md)  
+[TODOs](./docs/todos.md)  
+[Terminal basics](./docs/terminal-basics.md)  
+
+# System Design
+![](docs/assets/system-design.png)
 
 # Trading Bot Notes
 ## HFT Bots
@@ -36,14 +39,14 @@ Cons
 
 Adding Strategies - Step by step guide: https://github.com/freqtrade/freqtrade-strategies#how-to-install-a-strategy  
 Strategies - Detailed documentation: https://www.freqtrade.io/en/stable/strategy-customization/  
-TA Bots
-Technical analysis involves using real-world data to try to predict the future of the market. It involves looking at past statistics of the cryptocurrencies in question, including factors like volume and movement.
-evaluating the cryptocurrency’s inherent value - by patterns and analytic charting tools - determine strengths and weaknesses and then future patterns
+## TA Bots
+Technical analysis involves using real-world data to try to predict the future of the market. It involves looking at past statistics of the cryptocurrencies in question, including factors like volume and movement. 
+evaluating the cryptocurrency’s inherent value - by patterns and analytic charting tools - determine strengths and weaknesses and then future patterns  
 Supported markets
-Bitmart — https://www.bitmart.com/ - loads of new altcoins/shitcoins
-Dex — https://dex.guru/ - dex
-Pancakeswap — https://pancakeswap.finance/ - dex
-Binance — https://binance.com/ - cheapest transaction fee
+- Bitmart — https://www.bitmart.com/ - loads of new altcoins/shitcoins
+- Dex — https://dex.guru/ - dex
+- Pancakeswap — https://pancakeswap.finance/ - dex
+- Binance — https://binance.com/ - cheapest transaction fee
 
 ## Bot Candidates
 Octobot - https://www.octobot.online  
@@ -56,7 +59,7 @@ Cons
 - Risk disclaimer
 - Digital Ocean?
 
-Investment Strategies
+## Investment Strategies
 Whitelist and Blacklist target asset pairs to trade
 Fine-tune bot configuration parameters such as max_open_trades, stake_amount, etc.
 Backtesting - Backtesting is the process of using recorded data of cryptocurrency / stock markets injected in a system to test its performances on past data.
@@ -64,26 +67,25 @@ Live trading with oversight in web interface and notification channels (email, t
 Machine Learning models for classification and sentiment analysis
 Arbitrage trading: Intra market and in-market cryptocurrency triangle arbitrage
 
-Data Sources
+## Data Sources
 https://coinmarketcap.com/api/ 
 Bot output data - SQLite for Freqtrade
 Web scaped NLP sentiment data, tagged for asset pairs, markets, products, domains, and generic semantic data
 
-Other Ideas
-Automated approach to Content Publishing with bots to inflate the value of an asset momentarily, or to generate a price difference between markets for a given asset pair.
+## Other Ideas
+Automated approach to Content Publishing with bots to inflate the value of an asset momentarily, or to generate a price difference between markets for a given asset pair.  
 It is possible to register to any platform or service that offers a free tier using the following strategy:
-Buy a domain from Google Domains for $12
-Enable email aliases for *@newdomain.com -> infinite verifiable email addresses
-Buy a phone number on Twilio or SignalWire from $1 - $20 -> infinite verifiable phone numbers
+- Buy a domain from Google Domains for $12
+- Enable email aliases for *@newdomain.com:  infinite verifiable email addresses
+- Buy a phone number on Twilio or SignalWire from \$1
+to \$20: infinite verifiable phone numbers
 Register to free service, if asked, use a prepaid Revolut temporary virtual card and it will not be charged once the service switched to a paid tier
-For legal identity verification, it’s possible to buy fake ID documents on the dark web ($$$) -> infinite verifiable identities
+- For legal identity verification, it’s possible to buy fake ID documents on the dark web ($$$) -> infinite verifiable identities
 
-Applied ML
+## Applied ML
 It is possible to use the OpenAI API to run ML models as a service. Possible use cases for applied Machine Learning in the crypto trading domain are:
 Reinforcement Learning and training ML models new models on the databases
 Create a new model architecture version to improve performance
-Applied NLP for sentiment analysis of posts, comments, articles and online content
-
-Read more on OpenAI blog
-Live training custom models using OpenAI Gym in an Nvidia Tesla M60 GPU accelerated environment in Azure
-Using time series data to predict future asset value with Reinforcement Learning while backtesting Recurrent LSTM models
+Applied NLP for sentiment analysis of posts, comments, articles and online content - Read more on OpenAI blog. 
+- Live training custom models using OpenAI Gym in an Nvidia Tesla M60 GPU accelerated environment in Azure
+- Using time series data to predict future asset value with Reinforcement Learning while backtesting Recurrent LSTM models
