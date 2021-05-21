@@ -1,7 +1,7 @@
 FROM mhart/alpine-node:12
 
 # install dependencies
-WORKDIR /app
+WORKDIR /etc/app
 COPY package.json package-lock.json ./
 RUN npm ci
 
@@ -16,8 +16,8 @@ RUN npm run build
 ###
 FROM mhart/alpine-node:slim-12
 
-WORKDIR /app
-COPY --from=0 /app .
+WORKDIR /etc/app
+COPY --from=0 /etc/app .
 COPY . .
 
 EXPOSE 3000

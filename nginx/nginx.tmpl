@@ -331,6 +331,8 @@ server {
 	include /etc/nginx/vhost.d/default;
 	{{ end }}
 
+	include /etc/nginx/include/error.conf;
+
 	location / {
 		{{ if eq $proto "uwsgi" }}
 		include uwsgi_params;
@@ -382,6 +384,8 @@ server {
 	{{ else if (exists "/etc/nginx/vhost.d/default") }}
 	include /etc/nginx/vhost.d/default;
 	{{ end }}
+
+	include /etc/nginx/include/error.conf;
 
 	location / {
 		{{ if eq $proto "uwsgi" }}

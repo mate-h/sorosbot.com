@@ -1,11 +1,5 @@
 import preprocess from 'svelte-preprocess';
 import node from '@sveltejs/adapter-node';
-import dotenv from 'dotenv';
-
-if (process.env.NODE_ENV === "development") {
-	// eslint-disable-next-line @typescript-eslint/no-var-requires
-	dotenv.config();
-}
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {

@@ -3,8 +3,6 @@ import fastify from "fastify";
 import cookie from "cookie";
 import * as admin from "firebase-admin";
 import fastifyCors from 'fastify-cors';
-import env from 'dotenv';
-env.config();
 
 const server = fastify({ logger: true });
 server.register(fastifyCors);
@@ -14,7 +12,7 @@ const auth = app.auth();
 
 // Declare a route
 server.get("/", async (request, reply) => {
-  return { hello: "world" };
+  return { status: 'ok' };
 });
 server.get("/auth", async (request, reply) => {
   // validate request headers
@@ -38,6 +36,7 @@ server.get("/auth", async (request, reply) => {
       }
     }
   } catch (e) {
+    server.log.error(e);
     return reply.code(401).send(e);
   }
 
@@ -86,12 +85,13 @@ server.post("/session", async (request, reply) => {
 
 // Run the server!
 const start = async () => {
-  server.listen(5000, "0.0.0.0", function (err, address) {
+  const port = parseInt(process.env.NODE_PORT || "5000");
+  server.listen(port, "0.0.0.0", function (err, address) {
     if (err) {
       server.log.error(err);
       process.exit(1);
     }
-    server.log.info(`server listening on ${address}`);
+    server.log.info(process.env);
   });
 };
 start();

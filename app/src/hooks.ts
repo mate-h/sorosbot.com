@@ -15,29 +15,27 @@ export const handle: Handle = async ({ request, render }) => {
   }
 
 	// either authorization header or session cookie must be present and valid
+	const whitelist = ['/signin', '/signin/password-reset', '/api/session'];
 	let authorized = false;
 	if (prerendering) authorized = true;
-	const whitelist = ['/signin', '/signin/password-reset', '/api/session'];
-
-	try {
-		const result = await fetch(`${apiHost}/auth`, {headers: request.headers}).then(async r => {
-			console.log(r.ok, await r.text());
-			return r;
-		}).then(r => r.json());
-		authorized = result.user !== undefined;
-	} catch(e) {
-		console.error(e);
+	else {
+		try {
+			const result = await fetch(`${apiHost}/auth`, {headers: request.headers }).then(r => r.json());
+			authorized = result.user !== undefined;
+		} catch(e) {
+			console.error(e);
+		}
 	}
 
-	if (!authorized && !whitelist.includes(request.path)) {
-		const response: ServerResponse = {
-			status: 302,
-			headers: {
-				location: '/signin'
-			}
-		};
-		return response;
-	}
+	// if (!authorized && !whitelist.includes(request.path)) {
+	// 	const response: ServerResponse = {
+	// 		status: 302,
+	// 		headers: {
+	// 			location: '/signin'
+	// 		}
+	// 	};
+	// 	return response;
+	// }
 	// if (authorized && whitelist.includes(request.path)) {
 	// 	const response: ServerResponse = {
 	// 		status: 302,
