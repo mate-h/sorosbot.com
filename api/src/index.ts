@@ -3,8 +3,20 @@ import fastify from "fastify";
 import cookie from "cookie";
 import * as admin from "firebase-admin";
 import fastifyCors from 'fastify-cors';
+import fs from 'fs';
+import path from 'path';
 
-const server = fastify({ logger: true });
+const config = { 
+  logger: true,
+  http2: true,
+  https: {
+    allowHTTP1: true, // fallback support for HTTP1
+    key: fs.readFileSync(path.join('/etc/nginx/certs', 'default.key')),
+    cert: fs.readFileSync(path.join('/etc/nginx/certs', 'default.crt'))
+  }
+};
+const server = fastify(config);
+server.log.info('config', config);
 server.register(fastifyCors);
 
 let app = admin.initializeApp();

@@ -1,0 +1,13 @@
+services:
+  nginx-proxy:
+    volumes:
+      - ../nginx/certs:/etc/nginx/certs:ro
+  docker-gen:
+    volumes:
+      - ../nginx/certs:/etc/nginx/certs:ro
+  api:
+    volumes:
+      - ../nginx/certs:/etc/nginx/certs:ro
+  web:
+    volumes:
+      - ../nginx/certs:/etc/nginx/certs:ro

@@ -1,5 +1,8 @@
 import preprocess from 'svelte-preprocess';
 import node from '@sveltejs/adapter-node';
+// import os from 'os';
+
+// console.log(os.networkInterfaces());
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
@@ -10,7 +13,12 @@ const config = {
 	kit: {
 		// hydrate the <div id="svelte"> element in src/app.html
 		target: '#svelte',
-		adapter: node()
+		adapter: node(),
+		vite: {
+			server: {
+				host: '0.0.0.0'
+			}
+		}
 	}
 };
 

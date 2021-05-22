@@ -1,24 +1,24 @@
-FROM mhart/alpine-node:12
+FROM mhart/alpine-node:16 as base
 
-# install dependencies
-WORKDIR /etc/app
-COPY package.json package-lock.json ./
-RUN npm ci
+WORKDIR /usr/src/app
+COPY package*.json .
+COPY .dockerignore .
+RUN npm install
+ARG VIRTUAL_HOST
+ENV VIRTUAL_HOST $VIRTUAL_HOST
+RUN echo "VITE_VIRTUAL_HOST=$VIRTUAL_HOST" > .env
 
-# Copy all local files into the image.
+FROM base as production
+ENV NODE_ENV=production
+RUN cat ./.dockerignore
 COPY . .
-
 RUN npm run build
+CMD [ "node", "./build" ]
 
-###
-# Only copy over the Node pieces we need
-# ~> Saves 35MB
-###
-FROM mhart/alpine-node:slim-12
-
-WORKDIR /etc/app
-COPY --from=0 /etc/app .
+FROM base as development
+ENV NODE_ENV=development
+RUN echo "src\nstatic" > .dockerignore
+RUN cat ./.dockerignore
 COPY . .
-
-EXPOSE 3000
-CMD ["node", "./build"]
+RUN npm install -g @sveltejs/kit@next
+CMD [ "svelte-kit", "dev", "--host" ]

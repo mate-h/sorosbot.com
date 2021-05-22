@@ -1,10 +1,6 @@
 import cookie from 'cookie';
 import { v4 as uuid } from '@lukeed/uuid';
 import type { Handle } from '@sveltejs/kit';
-import type { ServerResponse } from '@sveltejs/kit/types/hooks';
-import { prerendering } from '$app/env';
-import { apiHost } from '$lib/config';
-console.log('API host', apiHost);
 
 export const handle: Handle = async ({ request, render }) => {
 	const cookies = cookie.parse(request.headers.cookie || '');
@@ -13,38 +9,6 @@ export const handle: Handle = async ({ request, render }) => {
   if (authHeader.toLowerCase().includes('bearer')) {
     request.locals.idToken = authHeader.split(' ')[1];
   }
-
-	// either authorization header or session cookie must be present and valid
-	const whitelist = ['/signin', '/signin/password-reset', '/api/session'];
-	let authorized = false;
-	if (prerendering) authorized = true;
-	else {
-		try {
-			const result = await fetch(`${apiHost}/auth`, {headers: request.headers }).then(r => r.json());
-			authorized = result.user !== undefined;
-		} catch(e) {
-			console.error(e);
-		}
-	}
-
-	// if (!authorized && !whitelist.includes(request.path)) {
-	// 	const response: ServerResponse = {
-	// 		status: 302,
-	// 		headers: {
-	// 			location: '/signin'
-	// 		}
-	// 	};
-	// 	return response;
-	// }
-	// if (authorized && whitelist.includes(request.path)) {
-	// 	const response: ServerResponse = {
-	// 		status: 302,
-	// 		headers: {
-	// 			location: '/console'
-	// 		}
-	// 	};
-	// 	return response;
-	// }
 
 	// TODO https://github.com/sveltejs/kit/issues/1046
 	if (request.query.has('_method')) {

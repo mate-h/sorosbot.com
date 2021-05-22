@@ -24,12 +24,16 @@
 			const idToken = await credential.user.getIdToken();
 			const cred = await fetch('/api/session', {
 				method: 'post',
+				credentials: 'include',
 				headers: {
 					Authorization: `Bearer ${idToken}`
 				}
 			}).then((r) => r.json());
 			user.set(cred.user);
-			goto('/console');
+			const next = new URL(window.location.href).searchParams.get('next');
+			if (next) {
+				window.location.href = next;
+			} else goto('/console');
 		}
 		loading = false;
 	}

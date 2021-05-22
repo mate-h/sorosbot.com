@@ -1,4 +1,6 @@
-export const apiHost = "http://api"; //process.env["API_HOST"];
-export const codeHost = `https://code.${process.env['HOST']}`; //process.env["CODE_HOST"];
-export const cookieDomain = `.${process.env['HOST']}`;
-console.log('config', {apiHost, codeHost, cookieDomain});
+export const apiHost = "https://api";
+export const host = import.meta.env.VITE_VIRTUAL_HOST;
+export const codeHost= `https://code.${host}`;
+export const cookieDomain = `${host}`;
+
+console.log('config', {host, apiHost, codeHost, cookieDomain});
