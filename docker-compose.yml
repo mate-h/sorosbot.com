@@ -154,7 +154,7 @@ services:
         restart: always
 
     letsencrypt:
-        image: jrcs/letsencrypt-nginx-proxy-companion
+        image: nginxproxy/acme-companion
         container_name: nginx-proxy-le
         depends_on:
             - nginx-proxy
@@ -163,7 +163,9 @@ services:
             - vhost:/etc/nginx/vhost.d
             - html:/usr/share/nginx/html
             - certs:/etc/nginx/certs
+            - acme:/etc/acme.sh
             - /var/run/docker.sock:/var/run/docker.sock:ro
+            - ./.env.${CERT_TARGET}:/app/letsencrypt_user_data:ro
         environment:
             - NGINX_PROXY_CONTAINER=nginx-proxy
             - NGINX_DOCKER_GEN_CONTAINER=nginx-proxy-gen
@@ -175,6 +177,7 @@ volumes:
     vhost: 
     html:
     certs:
+    acme:
     freqtrade:
     web:
     portainer_data:
