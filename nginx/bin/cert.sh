@@ -40,6 +40,7 @@ DNS.1 = $NAME # Include the domain name here because Common Name is not so commo
 DNS.2 = api.$NAME # Optional: add domains or subdomains
 DNS.3 = freqtrade.$NAME
 DNS.4 = code.$NAME
+DNS.5 = portainer.$NAME
 IP.1 = 192.168.86.175 # Add an IP address if the connection requires it
 EOF
 

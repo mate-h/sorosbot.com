@@ -3,6 +3,7 @@ services:
         extends:
             file: ./docker/config.${CERT_TARGET}.yml
             service: web
+        image: web
         build: 
             context: ./app
             dockerfile: Dockerfile
@@ -27,6 +28,7 @@ services:
             - GOOGLE_APPLICATION_CREDENTIALS=./google-cloud.json
             - FIREBASE_API_KEY=AIzaSyCwBM6pEe6m09J8hLco4Dzsc_9bDkxrpwg
     api:
+        image: api:latest
         extends:
             file: ./docker/config.${CERT_TARGET}.yml
             service: api
@@ -49,6 +51,7 @@ services:
         environment:
             - VIRTUAL_HOST=api.${HOST}
             - VIRTUAL_PROTO=https
+            - VIRTUAL_PORT=443
             - NODE_PORT=443
             - GOOGLE_APPLICATION_CREDENTIALS=./google-cloud.json
             - FIREBASE_API_KEY=AIzaSyCwBM6pEe6m09J8hLco4Dzsc_9bDkxrpwg
@@ -99,6 +102,20 @@ services:
         environment:
             - VIRTUAL_HOST=freqtrade.${HOST}
 
+    portainer:
+        container_name: portainer
+        image: portainer/portainer-ce
+        restart: always
+        ports:
+            - "127.0.0.1:8000:8000"
+            - "127.0.0.1:9000:9000"
+        volumes: 
+            - portainer_data:/data
+            - /var/run/docker.sock:/var/run/docker.sock
+        environment:
+            - VIRTUAL_HOST=portainer.${HOST}
+            - VIRTUAL_PORT=9000
+
     nginx-proxy:
         extends:
             file: ./docker/config.${CERT_TARGET}.yml
@@ -112,6 +129,7 @@ services:
             - conf:/etc/nginx/conf.d
             - html:/usr/share/nginx/html
             - ./nginx/error.html:/var/www/default/error.html:ro
+            - ./nginx/favicon.png:/var/www/default/favicon.png:ro
             - ./nginx/vhost.d:/etc/nginx/vhost.d
             - ./nginx/conf.d/server.conf:/etc/nginx/conf.d/server.conf:ro
             - ./nginx/include:/etc/nginx/include:ro
@@ -157,6 +175,7 @@ volumes:
     certs:
     freqtrade:
     web:
+    portainer_data:
 
 networks:
     default:

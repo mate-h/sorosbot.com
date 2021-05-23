@@ -1,0 +1,4 @@
+error_page 401 = @error401;
+location @error401 {
+  rewrite ^.*$ https://localhost.dev/signin?next=https://api.localhost.dev$request_uri redirect;
+}

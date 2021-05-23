@@ -37,15 +37,13 @@ server.get("/auth", async (request, reply) => {
   }
   let authorized = false;
   try {
-    if (idToken) {
+    const session = cookies.session;
+    if (session) {
+      user = await auth.verifySessionCookie(session);
+      authorized = user !== undefined;
+    } else if (idToken) {
       user = await auth.verifyIdToken(idToken);
       authorized = user !== undefined;
-    } else {
-      const session = cookies.session;
-      if (session) {
-        user = await auth.verifySessionCookie(session);
-        authorized = user !== undefined;
-      }
     }
   } catch (e) {
     server.log.error(e);
@@ -107,3 +105,7 @@ const start = async () => {
   });
 };
 start();
+
+import './routes/docker';
+
+export {server};

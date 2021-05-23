@@ -2,3 +2,4 @@
 127.0.0.1       api.localhost.dev
 127.0.0.1       freqtrade.localhost.dev
 127.0.0.1       code.localhost.dev
+127.0.0.1       portainer.localhost.dev
