@@ -66,6 +66,7 @@ services:
             - TZ=Europe/London
             - PROXY_DOMAIN=code.sorosbot.com #optional
             - VIRTUAL_HOST=code.${HOST}
+            - LETSENCRYPT_HOST=code.${HOST}
         volumes:
             - ./dev/config:/config
         ports:
@@ -103,6 +104,7 @@ services:
             --strategy SampleStrategy
         environment:
             - VIRTUAL_HOST=freqtrade.${HOST}
+            - LETSENCRYPT_HOST=freqtrade.${HOST}
 
     portainer:
         container_name: portainer
@@ -117,6 +119,7 @@ services:
         environment:
             - VIRTUAL_HOST=portainer.${HOST}
             - VIRTUAL_PORT=9000
+            - LETSENCRYPT_HOST=portainer.${HOST}
 
     nginx-proxy:
         extends:
