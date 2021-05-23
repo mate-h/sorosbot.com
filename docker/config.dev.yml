@@ -11,3 +11,4 @@ services:
   web:
     volumes:
       - ../nginx/certs:/etc/nginx/certs:ro
+      - ../app:/usr/src/app

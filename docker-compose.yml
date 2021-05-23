@@ -13,16 +13,17 @@ services:
         container_name: web
         expose: 
             - "3000"
+            - "24678"
         ports:
             - "127.0.0.1:3000:3000"
+            - "127.0.0.1:24678:24678"
         volumes:
             - conf:/etc/nginx/conf.d
             - vhost:/etc/nginx/vhost.d
-            - ./app/src:/usr/src/app/src
-            - ./app/static:/usr/src/app/static
             - /var/run/docker.sock:/var/run/docker.sock:ro
         environment:
             - VIRTUAL_HOST=${HOST}
+            - VIRTUAL_PORT=3000
             - GOOGLE_APPLICATION_CREDENTIALS=./google-cloud.json
             - FIREBASE_API_KEY=AIzaSyCwBM6pEe6m09J8hLco4Dzsc_9bDkxrpwg
     api:

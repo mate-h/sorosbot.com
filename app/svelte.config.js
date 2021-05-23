@@ -16,7 +16,10 @@ const config = {
 		adapter: node(),
 		vite: {
 			server: {
-				host: '0.0.0.0'
+				hmr: {
+					host: 'localhost',
+					port: '24678'
+				}
 			}
 		}
 	}
