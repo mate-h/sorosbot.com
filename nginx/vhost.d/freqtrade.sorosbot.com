@@ -3,7 +3,10 @@ location @error401 {
   rewrite ^.*$ https://sorosbot.com/signin?next=https://freqtrade.sorosbot.com$request_uri redirect;
 }
 
-auth_request /auth;
+location ^~ /.well-known/acme-challenge/ {
+  auth_request off;
+}
+
 location = /auth {
   internal;
   proxy_pass https://api.sorosbot.com-upstream;

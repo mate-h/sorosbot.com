@@ -14,6 +14,10 @@ location /favicon.png {
   proxy_pass http://sorosbot.com-upstream;
 }
 
+location ^~ /.well-known/acme-challenge/ {
+  auth_request off;
+}
+
 location @error401 {
   rewrite ^.*$ https://sorosbot.com/signin?next=https://sorosbot.com$request_uri redirect;
 }
