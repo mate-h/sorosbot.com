@@ -11,6 +11,12 @@ try {
 catch {
 	//
 }
+try {
+	ca.push(fs.readFileSync("/etc/nginx/certs/dhparam.pem"));
+}
+catch {
+	//
+}
 https.globalAgent.options.ca = ca;
 
 export const post: RequestHandler = async ({ headers }) => {
