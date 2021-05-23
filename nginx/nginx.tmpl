@@ -333,7 +333,18 @@ server {
 
 	include /etc/nginx/include/error.conf;
 
+	location ^~ /.well-known/acme-challenge/ {
+		auth_basic off;
+		auth_request off;
+		allow all;
+		root /usr/share/nginx/html;
+		try_files $uri =404;
+		break;
+	}
+
 	location / {
+		auth_request /auth;
+
 		{{ if eq $proto "uwsgi" }}
 		include uwsgi_params;
 		uwsgi_pass {{ trim $proto }}://{{ trim $upstream_name }};
@@ -387,7 +398,18 @@ server {
 
 	include /etc/nginx/include/error.conf;
 
+	location ^~ /.well-known/acme-challenge/ {
+		auth_basic off;
+		auth_request off;
+		allow all;
+		root /usr/share/nginx/html;
+		try_files $uri =404;
+		break;
+	}
+
 	location / {
+		auth_request /auth;
+		
 		{{ if eq $proto "uwsgi" }}
 		include uwsgi_params;
 		uwsgi_pass {{ trim $proto }}://{{ trim $upstream_name }};

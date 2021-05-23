@@ -3,10 +3,6 @@ location @error401 {
   rewrite ^.*$ https://sorosbot.com/signin?next=https://code.sorosbot.com$request_uri redirect;
 }
 
-location ^~ /.well-known/acme-challenge/ {
-  auth_request off;
-}
-
 location = /auth {
   internal;
   proxy_pass https://api.sorosbot.com-upstream;

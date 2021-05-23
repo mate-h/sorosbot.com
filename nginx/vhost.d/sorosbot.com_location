@@ -1,2 +1,0 @@
-error_page 401 = @error401;
-auth_request /auth; 
