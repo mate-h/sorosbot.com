@@ -1,6 +1,6 @@
 error_page 401 = @error401;
 location @error401 {
-  rewrite ^.*$ https://sorosbot.com/signin?next=$1 redirect;
+  rewrite ^.*$ https://sorosbot.com/signin?next=https://freqtrade.sorosbot.com$request_uri redirect;
 }
 
 auth_request /auth;

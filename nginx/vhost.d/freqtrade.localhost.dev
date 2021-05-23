@@ -1,6 +1,6 @@
 error_page 401 = @error401;
 location @error401 {
-  rewrite ^.*$ https://localhost.dev/signin?next=$1 redirect;
+  rewrite ^.*$ https://localhost.dev/signin?next=https://freqtrade.localhost.dev$request_uri redirect;
 }
 
 auth_request /auth;
