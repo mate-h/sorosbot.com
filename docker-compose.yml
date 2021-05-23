@@ -163,6 +163,7 @@ services:
             - vhost:/etc/nginx/vhost.d
             - html:/usr/share/nginx/html
             - certs:/etc/nginx/certs
+            - conf:/etc/nginx/conf.d
             - acme:/etc/acme.sh
             - /var/run/docker.sock:/var/run/docker.sock:ro
             - ./.env.${CERT_TARGET}:/app/letsencrypt_user_data:ro
