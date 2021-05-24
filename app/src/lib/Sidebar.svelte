@@ -198,6 +198,7 @@
 <div class="fixed h-full border-r border-gray-100 bg-white dark:bg-gray-900 dark:border-gray-500">
 	<nav style={`width: ${width}rem`} class="h-full relative">
 		<div class="p-6 overflow-hidden">
+			<slot />
 			{#each folders as { name, items, icon }}
 				<p class="truncate opacity-50 uppercase text-xs font-medium tracking-widest">
 					<Icon name={icon} />

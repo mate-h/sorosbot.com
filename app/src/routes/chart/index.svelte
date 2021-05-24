@@ -116,20 +116,17 @@
 </script>
 
 <Sidebar {page}>
+	<div slot="context" class="mb-6">
+		<p class="mb-2">
+			<Datalist on:change={onSymbolChange} options={symbols} value="BTCUSDT" placeholder="Symbol" />
+		</p>
+		<p>
+			<Datalist options={['1m', '3m', '5m', '15m']} value="5m" placeholder="Interval" />
+		</p>
+	</div>
 	<div class="root relative">
 		<div class="main" tabindex="0" bind:this={node} />
-		<div style="top: 1px; left: 2px; z-index: 10" class="absolute p-1">
-			<Datalist on:change={onSymbolChange} options={symbols} value="BTCUSDT" placeholder="Symbol" />
-			<!-- <Datalist
-				options={['1m', '3m', '5m', '15m']}
-				value="5m"
-				placeholder="Interval"
-				class="ml-1"
-			/> -->
-		</div>
 	</div>
-
-	<slot />
 </Sidebar>
 
 <style>

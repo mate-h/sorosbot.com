@@ -17,7 +17,9 @@
 	});
 </script>
 
-<Sidebar page={currentPage} on:change={onchange} />
+<Sidebar page={currentPage} on:change={onchange}>
+	<slot name="context" />
+</Sidebar>
 
 <div {style}>
 	<slot />
