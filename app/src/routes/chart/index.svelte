@@ -1,7 +1,12 @@
 <script context="module" lang="ts">
 	import type { Load, Page } from '@sveltejs/kit';
-	export const load: Load = async ({ page }) => {
-		const symbols = await client.exchangeInfo().then((r) => r.symbols.map((s) => s.symbol));
+	import type { ExchangeInfo } from 'binance-api-node';
+	export const load: Load = async ({ fetch, page }) => {
+		const symbols = await fetch('https://api.binance.com/api/v3/exchangeInfo')
+			.then((r) => r.json())
+			.then((r: ExchangeInfo) => {
+				return r.symbols.map((s) => s.symbol);
+			});
 		return {
 			props: { page, symbols }
 		};
@@ -20,7 +25,6 @@
 		UTCTimestamp
 	} from 'lightweight-charts';
 	import Datalist from '$lib/Datalist.svelte';
-	import { CandleChartInterval } from 'binance-api-node';
 	import { client } from '$lib/binance/api';
 
 	let node;
@@ -73,7 +77,7 @@
 
 	let candleSeries: ISeriesApi<'Candlestick'>;
 	function updateChart({ symbol, interval }: { symbol: string; interval: string }) {
-		client.candles({ symbol, interval: interval as CandleChartInterval }).then((r) => {
+		client.candles({ symbol, interval: interval as any }).then((r) => {
 			if (candleSeries) chart.removeSeries(candleSeries);
 			candleSeries = chart.addCandlestickSeries();
 
