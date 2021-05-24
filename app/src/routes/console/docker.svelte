@@ -1,5 +1,8 @@
 <script lang="ts">
+	import Card from '$lib/Card.svelte';
 	import Icon from '$lib/Icon.svelte';
+	import Section from '$lib/Section.svelte';
+	import Title from '$lib/Title.svelte';
 
 	const instances = [
 		{
@@ -24,10 +27,14 @@
 	];
 </script>
 
-<section class="container mx-auto p-6">
-	<h1 class="text-3xl font-medium mb-4">Docker</h1>
+<svelte:head>
+	<title>Docker - Soros Bot</title>
+</svelte:head>
 
-	<div class="bg-white rounded dark:bg-gray-900 p-6">
+<Section>
+	<Title>Docker</Title>
+
+	<Card>
 		<h1 class="text-2xl font-medium mb-4">Instances</h1>
 		{#each instances as { name, image, container_name, volumes, ports, command, environment }}
 			<h2 class="text-lg font-medium mb-4">{name}</h2>
@@ -68,8 +75,8 @@
 				{/each}
 			</ul>
 		{/each}
-	</div>
-</section>
+	</Card>
+</Section>
 
 <style>
 	p,

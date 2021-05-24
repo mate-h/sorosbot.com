@@ -1,5 +1,7 @@
 import { browser } from "$app/env";
+import { page } from "$app/stores";
 import { writable } from "svelte/store"
+import pages from "./pages";
 
 export const navItems = [
   {

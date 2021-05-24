@@ -1,9 +1,14 @@
 <script lang="ts">
 	import { browser } from '$app/env';
 	import { createEventDispatcher } from 'svelte';
+	import { host } from './config';
 	import Icon from './Icon.svelte';
+	import pages from './pages';
+	import { page as pageStore } from '$app/stores';
+	import type { Page } from '@sveltejs/kit';
 
 	export let width = 16;
+	export let page: Page;
 	const dispatch = createEventDispatcher();
 
 	let followPos;
@@ -13,9 +18,9 @@
 		if (browser) {
 			if (following) {
 				document.documentElement.style.cursor = 'ew-resize';
-				document.body.classList.add('pointer-events-none');
+				document.documentElement.style['user-select'] = 'none';
 			} else {
-				document.body.classList.remove('pointer-events-none');
+				document.documentElement.style['user-select'] = 'auto';
 				document.documentElement.style.cursor = 'auto';
 			}
 		}
@@ -52,6 +57,24 @@
 		const dx = (x - followPos.x) / rem;
 		return Math.min(maxW, Math.max(minW, origWidth + dx));
 	}
+	const services = [
+		{
+			name: 'API',
+			href: `https://api.${host}`
+		},
+		{
+			name: 'VSCode',
+			href: `https://code.${host}`
+		},
+		{
+			name: 'Freqtrade',
+			href: `https://freqtrade.${host}`
+		},
+		{
+			name: 'Portainer',
+			href: `https://portainer.${host}`
+		}
+	];
 	const shared = [
 		{
 			name: 'GitHub',
@@ -125,26 +148,49 @@
 			name: string;
 			href: string;
 			app?: boolean;
+			local?: boolean;
+			selected?: boolean;
 		}[];
 		icon: any;
 	};
-	const folders: Folder[] = [
-		{
-			name: 'Shared',
-			items: shared,
-			icon: 'globe'
-		},
-		{
-			name: 'Bookmarks',
-			items: bookmarks,
-			icon: 'link'
-		},
-		{
-			name: 'Forums',
-			items: forums,
-			icon: 'message'
-		}
-	];
+	let folders: Folder[];
+	$: {
+		folders = [
+			{
+				name: 'Pages',
+				items: pages.map((p) => ({ ...p, local: true, selected: page.path === p.href })),
+				icon: 'doc.text'
+			},
+			{
+				name: 'Services',
+				items: services,
+				icon: 'cloud'
+			},
+			{
+				name: 'Shared',
+				items: shared,
+				icon: 'globe'
+			},
+			{
+				name: 'Bookmarks',
+				items: bookmarks,
+				icon: 'link'
+			},
+			{
+				name: 'Forums',
+				items: forums,
+				icon: 'message'
+			}
+		];
+	}
+	function getStyle(href: string) {
+		const l = href.split('/').length - 2;
+		return `padding-left: ${l}rem`;
+	}
+	function isSelected(path: string, i: number) {
+		const currentIndex = pages.findIndex((p) => p.href === path);
+		return currentIndex === i;
+	}
 </script>
 
 <svelte:window on:pointerup={stop} on:pointermove={move} />
@@ -153,15 +199,17 @@
 	<nav style={`width: ${width}rem`} class="h-full relative">
 		<div class="p-6 overflow-hidden">
 			{#each folders as { name, items, icon }}
-				<p class="truncate text-gray-500 uppercase text-xs tracking-widest">
+				<p class="truncate opacity-50 uppercase text-xs font-medium tracking-widest">
 					<Icon name={icon} />
 					{name}
 				</p>
 				<ul class="mb-4">
-					{#each items as { href, name, app }}
-						<li class="truncate">
+					{#each items as { href, name, app, local, selected }, i}
+						<li class="truncate" class:selected>
 							{#if app}
 								<a rel="external" {href}>{name}</a>
+							{:else if local}
+								<a style={getStyle(href)} {href}>{name}</a>
 							{:else}
 								<a target="_blank" rel="noopener noreferrer" {href}>{name}</a>
 							{/if}
@@ -183,5 +231,8 @@
 <style>
 	hr {
 		cursor: ew-resize;
+	}
+	.selected {
+		@apply font-bold;
 	}
 </style>

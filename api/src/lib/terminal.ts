@@ -1,4 +1,4 @@
-import { DockerContainer } from "@api";
+import { DockerContainer } from "../api";
 import http from "http";
 
 const isValidId = (id: string) => /^[0-9a-zA-Z]+$/.test(id.trim());

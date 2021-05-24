@@ -23,8 +23,28 @@ let app = admin.initializeApp();
 const auth = app.auth();
 
 // Declare a route
+const host = process.env['VIRTUAL_HOST'];
 server.get("/", async (request, reply) => {
-  return { status: 'ok' };
+  // TODO: OpenAPI JSON spec
+  return { status: 'ok', endpoints: [
+    {
+      url: `https://${host}/`
+    },
+    {
+      url: `https://${host}/docker`
+    },
+    {
+      url: `https://${host}/auth`
+    },
+    {
+      url: `https://${host}/logout`,
+      method: 'post'
+    },
+    {
+      url: `https://${host}/session`,
+      method: 'post'
+    },
+  ] };
 });
 server.get("/auth", async (request, reply) => {
   // validate request headers

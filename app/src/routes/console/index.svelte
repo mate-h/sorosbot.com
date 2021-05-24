@@ -1,10 +1,17 @@
 <script lang="ts">
+	import Card from '$lib/Card.svelte';
+	import Section from '$lib/Section.svelte';
+	import Title from '$lib/Title.svelte';
 </script>
 
-<section class="container mx-auto p-6">
-	<h1 class="text-3xl font-medium mb-4">Console</h1>
+<svelte:head>
+	<title>Console - Soros Bot</title>
+</svelte:head>
 
-	<div class="bg-white rounded p-6 dark:bg-gray-900 ">
+<Section>
+	<Title>Console</Title>
+
+	<Card>
 		<h2 class="text-2xl font-medium mb-4">Profit</h2>
 
 		<h3 class="text-lg font-medium">0.00193544 BTC</h3>
@@ -32,13 +39,11 @@
 				<p>NEO/BTC: 8.22%</p>
 			</div>
 		</div>
-	</div>
-</section>
+	</Card>
+</Section>
 
 <style>
-	p,
-	span,
-	ul {
+	p {
 		@apply text-sm;
 	}
 </style>

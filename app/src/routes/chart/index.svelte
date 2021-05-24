@@ -8,10 +8,10 @@
 </script>
 
 <script lang="ts">
-	import Console from '$lib/template/Console.svelte';
+	import Sidebar from '$lib/template/Sidebar.svelte';
 	export let page: Page;
 </script>
 
-<Console {page}>
+<Sidebar {page}>
 	<slot />
-</Console>
+</Sidebar>

@@ -14,12 +14,14 @@
 	$: {
 		currentNavItem = navItems.findIndex((i) => i.path === $page.path);
 	}
-	const navComponent = 'text-gray-500 hover:bg-gray-50 px-3 py-2 rounded-md text-sm font-medium';
+	const navComponent =
+		'text-gray-500 hover:bg-gray-50 dark:hover:bg-gray-800 px-3 py-2 rounded-md text-sm font-medium';
 	const navComponentM =
-		'text-gray-500 hover:bg-gray-50 block px-3 py-2 rounded-md text-base font-medium';
-	const activeNavComponent = 'bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium';
+		'text-gray-500 hover:bg-gray-50 dark:hover:bg-gray-800 block px-3 py-2 rounded-md text-base font-medium';
+	const activeNavComponent =
+		'bg-gray-900 hover:bg-gray-800 text-white px-3 py-2 rounded-md text-sm font-medium';
 	const activeNavComponentM =
-		'bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium';
+		'bg-gray-900 hover:bg-gray-800 text-white block px-3 py-2 rounded-md text-base font-medium';
 	function c(active = false) {
 		if (active) return sm ? activeNavComponentM : activeNavComponent;
 		return sm ? navComponentM : navComponent;
