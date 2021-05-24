@@ -11,9 +11,14 @@
 <script lang="ts">
 	import Sidebar from '$lib/template/Sidebar.svelte';
 	export let page: Page;
-
 	import { onMount } from 'svelte';
-	import type { BarData, ChartOptions, DeepPartial, IChartApi } from 'lightweight-charts';
+	import type {
+		IChartApi,
+		ISeriesApi,
+		TickMarkFormatter,
+		TickMarkType,
+		UTCTimestamp
+	} from 'lightweight-charts';
 	import Datalist from '$lib/Datalist.svelte';
 	import { CandleChartInterval } from 'binance-api-node';
 	import { client } from '$lib/binance/api';
@@ -22,7 +27,6 @@
 	let chart: IChartApi;
 	export let symbols: string[];
 
-	const defaultSymbol = 'BTCUSDT';
 	const darkTheme = {
 		chart: {
 			layout: {
@@ -46,37 +50,66 @@
 					color: 'rgba(255,255,255,0.12)'
 				}
 			}
-		},
-		series: {
-			topColor: 'rgba(32, 226, 47, 0.56)',
-			bottomColor: 'rgba(32, 226, 47, 0.04)',
-			lineColor: 'rgba(32, 226, 47, 1)'
 		}
 	};
 
+	let symbol = 'BTCUSDT';
+	let interval = '5m';
 	function onSymbolChange(e: Event) {
 		const el = e.target as HTMLInputElement;
-		updateChart(el.value);
+		symbol = el.value;
 	}
-	let candleSeries;
-	function updateChart(symbol: string) {
-		client.candles({ symbol, interval: CandleChartInterval.ONE_DAY }).then((r) => {
+
+	function onIntervalChange(e: Event) {
+		const el = e.target as HTMLInputElement;
+		interval = el.value;
+	}
+	let mounted = false;
+	$: {
+		if (mounted) {
+			updateChart({ symbol, interval });
+		}
+	}
+
+	let candleSeries: ISeriesApi<'Candlestick'>;
+	function updateChart({ symbol, interval }: { symbol: string; interval: string }) {
+		client.candles({ symbol, interval: interval as CandleChartInterval }).then((r) => {
 			if (candleSeries) chart.removeSeries(candleSeries);
 			candleSeries = chart.addCandlestickSeries();
-			const data: BarData[] = r.map((s) => ({
-				time: new Date(s.openTime).toUTCString(),
+
+			const data = r.map((s) => ({
+				time:
+					new Date(s.openTime + new Date(s.openTime).getTimezoneOffset() * 60 * 1000).getTime() /
+					1000,
 				open: parseFloat(s.open),
 				high: parseFloat(s.high),
 				low: parseFloat(s.low),
 				close: parseFloat(s.close)
 			}));
-			console.log(data[0]);
-			candleSeries.setData(data);
-			candleSeries.applyOptions(darkTheme.series);
+			candleSeries.setData(data as any);
 		});
 	}
 
+	let intervalOptions = [
+		'1m',
+		'3m',
+		'5m',
+		'15m',
+		'30m',
+		'1h',
+		'2h',
+		'4h',
+		'6h',
+		'8h',
+		'12h',
+		'1d',
+		'3d',
+		'1w',
+		'1M'
+	];
+
 	onMount(() => {
+		mounted = true;
 		function onresize(e) {
 			const n = e[0];
 			if (chart) chart.resize(n.contentRect.width, n.contentRect.height);
@@ -100,13 +133,18 @@
 		import('lightweight-charts').then(({ createChart }) => {
 			chart = createChart(node, {
 				width: node.clientWidth,
-				height: node.clientHeight
+				height: node.clientHeight,
+				layout: {
+					fontFamily: 'system-ui'
+				},
+				timeScale: {
+					timeVisible: true,
+					secondsVisible: false
+				}
 			});
 			if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
 				chart.applyOptions(darkTheme.chart as any);
 			}
-
-			updateChart(defaultSymbol);
 		});
 		return () => {
 			observer.unobserve(node);
@@ -117,11 +155,18 @@
 
 <Sidebar {page}>
 	<div slot="context" class="mb-6">
+		<p class="text-xs opacity-50">Chart settings</p>
+		<p class="text-sm mb-2">Exchange: Binance</p>
 		<p class="mb-2">
-			<Datalist on:change={onSymbolChange} options={symbols} value="BTCUSDT" placeholder="Symbol" />
+			<Datalist on:change={onSymbolChange} options={symbols} value={symbol} placeholder="Symbol" />
 		</p>
 		<p>
-			<Datalist options={['1m', '3m', '5m', '15m']} value="5m" placeholder="Interval" />
+			<Datalist
+				on:change={onIntervalChange}
+				options={intervalOptions}
+				value={interval}
+				placeholder="Interval"
+			/>
 		</p>
 	</div>
 	<div class="root relative">
