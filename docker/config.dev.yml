@@ -12,4 +12,4 @@ services:
     volumes:
       - ../nginx/certs:/etc/nginx/certs:ro
       - ../app:/usr/src/app
-      - ../app/build/assets/_app/assets/pages/__layout.svelte-a1f25787.css:/usr/src/app/build/layout.css
+      - ../app/build/assets/_app/assets/pages/__layout.svelte-a1f25787.css:/usr/src/app/build/layout.css:ro
