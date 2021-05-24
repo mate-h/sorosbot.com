@@ -1,13 +1,13 @@
 <script lang="ts">
 	const uid = Math.random().toString(36).substr(2, 7);
 	const list = Math.random().toString(36).substr(2, 7);
-	export let options: string[] = ['Chocolate'];
+	export let options: string[] = [];
 </script>
 
 <label for={uid}>
 	<slot name="label" />
 </label>
-<input {...$$restProps} class={`text-sm ${$$restProps.class}`} on:change {list} id={uid} />
+<input on:change {...$$restProps} class={`text-sm ${$$restProps.class}`} {list} id={uid} />
 
 <datalist id={list}>
 	{#each options as o}

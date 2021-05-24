@@ -1,8 +1,9 @@
 <script context="module" lang="ts">
 	import type { Load, Page } from '@sveltejs/kit';
 	export const load: Load = async ({ page }) => {
+		const symbols = await client.exchangeInfo().then((r) => r.symbols.map((s) => s.symbol));
 		return {
-			props: { page }
+			props: { page, symbols }
 		};
 	};
 </script>
@@ -12,13 +13,68 @@
 	export let page: Page;
 
 	import { onMount } from 'svelte';
-	import type { IChartApi } from 'lightweight-charts';
+	import type { BarData, ChartOptions, DeepPartial, IChartApi } from 'lightweight-charts';
 	import Datalist from '$lib/Datalist.svelte';
-
-	//
+	import { CandleChartInterval } from 'binance-api-node';
+	import { client } from '$lib/binance/api';
 
 	let node;
 	let chart: IChartApi;
+	export let symbols: string[];
+
+	const defaultSymbol = 'BTCUSDT';
+	const darkTheme = {
+		chart: {
+			layout: {
+				backgroundColor: '#111827',
+				lineColor: 'rgba(255,255,255,0.12)',
+				textColor: 'rgba(255,255,255,0.86)'
+			},
+			crosshair: {
+				vertLine: {
+					color: 'rgba(255,255,255,0.54)'
+				},
+				horzLine: {
+					color: 'rgba(255,255,255,0.54)'
+				}
+			},
+			grid: {
+				vertLines: {
+					color: 'rgba(255,255,255,0.12)'
+				},
+				horzLines: {
+					color: 'rgba(255,255,255,0.12)'
+				}
+			}
+		},
+		series: {
+			topColor: 'rgba(32, 226, 47, 0.56)',
+			bottomColor: 'rgba(32, 226, 47, 0.04)',
+			lineColor: 'rgba(32, 226, 47, 1)'
+		}
+	};
+
+	function onSymbolChange(e: Event) {
+		const el = e.target as HTMLInputElement;
+		updateChart(el.value);
+	}
+	let candleSeries;
+	function updateChart(symbol: string) {
+		client.candles({ symbol, interval: CandleChartInterval.ONE_DAY }).then((r) => {
+			if (candleSeries) chart.removeSeries(candleSeries);
+			candleSeries = chart.addCandlestickSeries();
+			const data: BarData[] = r.map((s) => ({
+				time: new Date(s.openTime).toUTCString(),
+				open: parseFloat(s.open),
+				high: parseFloat(s.high),
+				low: parseFloat(s.low),
+				close: parseFloat(s.close)
+			}));
+			console.log(data[0]);
+			candleSeries.setData(data);
+			candleSeries.applyOptions(darkTheme.series);
+		});
+	}
 
 	onMount(() => {
 		function onresize(e) {
@@ -46,19 +102,11 @@
 				width: node.clientWidth,
 				height: node.clientHeight
 			});
-			const lineSeries = chart.addLineSeries();
-			lineSeries.setData([
-				{ time: '2019-04-11', value: 80.01 },
-				{ time: '2019-04-12', value: 96.63 },
-				{ time: '2019-04-13', value: 76.64 },
-				{ time: '2019-04-14', value: 81.89 },
-				{ time: '2019-04-15', value: 74.43 },
-				{ time: '2019-04-16', value: 80.01 },
-				{ time: '2019-04-17', value: 96.63 },
-				{ time: '2019-04-18', value: 76.64 },
-				{ time: '2019-04-19', value: 81.89 },
-				{ time: '2019-04-20', value: 74.43 }
-			]);
+			if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+				chart.applyOptions(darkTheme.chart as any);
+			}
+
+			updateChart(defaultSymbol);
 		});
 		return () => {
 			observer.unobserve(node);
@@ -71,13 +119,13 @@
 	<div class="root relative">
 		<div class="main" tabindex="0" bind:this={node} />
 		<div style="top: 1px; left: 2px; z-index: 10" class="absolute p-1">
-			<Datalist options={['BTCUSDT', 'ETHUSDT', 'DOGEUSDT']} value="BTCUSDT" placeholder="Symbol" />
-			<Datalist
+			<Datalist on:change={onSymbolChange} options={symbols} value="BTCUSDT" placeholder="Symbol" />
+			<!-- <Datalist
 				options={['1m', '3m', '5m', '15m']}
 				value="5m"
-				placeholder="Timeframe"
+				placeholder="Interval"
 				class="ml-1"
-			/>
+			/> -->
 		</div>
 	</div>
 
