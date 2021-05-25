@@ -64,7 +64,7 @@ class SampleStrategyV1(IStrategy):
     }
 
     # Stoploss:
-    stoploss = -0.334
+    stoploss = -0.125
 
     # Optimal stoploss designed for the strategy.
     # This attribute will be overridden if the config file contains "stoploss".
