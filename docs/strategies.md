@@ -32,6 +32,8 @@ A top 100 trading pár az dinamikusan változik a backtest alatt (és élőben i
 
 Úgy lehet visszaforgatni a pénzt, hogy ahogy nő az egyenleg, úgy dinamikusan emelkedik a max_open_trades és a stake_amount paraméter. Nem csak live, hanem a backtest alatt is.
 
+https://www.freqtrade.io/en/stable/configuration/#dynamic-stake-amount
+
 ## Jegyzetek
 
 Érdemes utánanézni:
