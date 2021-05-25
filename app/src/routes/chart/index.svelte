@@ -26,6 +26,7 @@
 	} from 'lightweight-charts';
 	import Datalist from '$lib/Datalist.svelte';
 	import { client } from '$lib/binance/api';
+	import { optimalStrategy, strategyMarkers } from '$lib/binance/markers';
 
 	let node;
 	let chart: IChartApi;
@@ -89,8 +90,12 @@
 				high: parseFloat(s.high),
 				low: parseFloat(s.low),
 				close: parseFloat(s.close)
-			}));
-			candleSeries.setData(data as any);
+			})) as any;
+			candleSeries.setData(data);
+
+			const positions = optimalStrategy(data);
+			const markers = strategyMarkers(data, positions);
+			candleSeries.setMarkers(markers);
 		});
 	}
 
@@ -113,6 +118,7 @@
 	];
 
 	onMount(() => {
+		if (!node) return;
 		mounted = true;
 		function onresize(e) {
 			const n = e[0];
@@ -157,6 +163,10 @@
 	});
 </script>
 
+<svelte:head>
+	<title>Chart - Soros Bot</title>
+</svelte:head>
+
 <Sidebar {page}>
 	<div slot="context" class="mb-6">
 		<p class="text-xs opacity-50">Chart settings</p>
@@ -190,5 +200,6 @@
 	.main:focus {
 		@apply border;
 		@apply border-blue-500;
+		outline: none;
 	}
 </style>
