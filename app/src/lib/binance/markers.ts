@@ -5,7 +5,7 @@ const parameters = {
   stake_amount: 100,   // USDT
   spread: 2,           // USDT
   timerange: -1,      // candles
-  min_roi: 0.03,       // 3%
+  min_roi: 0.04,       // 3%
   stop_loss: -0.35     // -35%
 }
 type Positions = {
@@ -24,7 +24,7 @@ type Positions = {
     }
   ]
 }
-export function optimalStrategy(data: BarData[]): Positions {
+export function maxReturnStrategy(data: BarData[]): Positions {
   // select long positions with maximal profit 
   // given trade parameters
 
@@ -35,24 +35,10 @@ export function optimalStrategy(data: BarData[]): Positions {
     long: [
 
     ]
-  }
-
-  // define loss function
-  function lossFunction() {
-    return positions.long.reduce((a,c) => {
-      
-      // calculate profit (can be negative)
-      const buyPrice = data[c.buy_at].low;
-      const sellPrice = data[c.sell_at].high;
-      const score = (sellPrice - buyPrice) * parameters.stake_amount;
-      return a + score;
-    }, 0);
-  }
-
-  // stohastic descent in problem space with loss function
+  };
 
   // brute force problem space
-  let list: Positions = {long:[]};
+  const list: Positions = { long:[] };
   let min = 0;
   if (parameters.timerange > 0) {
     min = data.length - parameters.timerange
@@ -80,6 +66,7 @@ export function optimalStrategy(data: BarData[]): Positions {
       }
     }
   }
+  // sort list by ROI
   list.long.sort((a, b) => a.roi > b.roi ? -1 : 1);
   // list = list.filter(l => (l.sell_at - l.buy_at) > 3);
   function overlaps(p1, p2) {
@@ -106,9 +93,8 @@ export function optimalStrategy(data: BarData[]): Positions {
     });
     if (!allOverlap) {
       // if there are positions that overlap the newPosition with a better ROI
-      // allOverlap = false;
-      // list.long.filter(p => overlaps(p, newPosition));
-
+      
+      const overlap = list.long.filter(p => overlaps(p, newPosition));
       positions.long.push(newPosition);
     }
   });
@@ -134,5 +120,6 @@ export function strategyMarkers(data: BarData[], positions: Positions): SeriesMa
       text: (i+1) + '. ' + roi + '%'
     });
   })
+  markers.sort((a, b) => a.time > b.time ? 1:-1);
   return markers;
 }

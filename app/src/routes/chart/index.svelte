@@ -26,7 +26,7 @@
 	} from 'lightweight-charts';
 	import Datalist from '$lib/Datalist.svelte';
 	import { client } from '$lib/binance/api';
-	import { optimalStrategy, strategyMarkers } from '$lib/binance/markers';
+	import { maxReturnStrategy, strategyMarkers } from '$lib/binance/markers';
 
 	let node;
 	let chart: IChartApi;
@@ -93,7 +93,7 @@
 			})) as any;
 			candleSeries.setData(data);
 
-			const positions = optimalStrategy(data);
+			const positions = maxReturnStrategy(data);
 			const markers = strategyMarkers(data, positions);
 			candleSeries.setMarkers(markers);
 		});
