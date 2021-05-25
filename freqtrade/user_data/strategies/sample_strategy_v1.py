@@ -47,20 +47,20 @@ class SampleStrategyV1(IStrategy):
 
     # Buy hyperspace params:
     buy_params = {
-        'buy_rsi': 18
+        'buy_rsi': 35
     }
 
     # Sell hyperspace params:
     sell_params = {
-        'sell_rsi': 93
+        'sell_rsi': 65
     }
 
     # ROI table:
     minimal_roi = {
-        "0": 0.093,
-        "31": 0.068,
-        "73": 0.031,
-        "184": 0
+        "60": 0.0,    # Sell after 40 minutes if the profit is not negative
+        "30": 0.015,   # Sell after 30 minutes if there is at least 1% profit
+        "20": 0.03,   # Sell after 20 minutes if there is at least 2% profit
+        "0": 0.05,    # Sell immediately if there is at least 5% profit
     }
 
     # Stoploss:
