@@ -122,7 +122,7 @@ services:
         container_name: postgres
         image: api:latest
         ports:
-            - "127.0.0.1:5432:5432"
+            - "5432:5432"
         build: 
             context: ./docker/postgres
             dockerfile: Dockerfile
