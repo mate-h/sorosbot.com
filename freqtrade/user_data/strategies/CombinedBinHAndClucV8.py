@@ -147,7 +147,11 @@ class CombinedBinHAndClucV8(IStrategy):
             return 0.01
         elif (current_profit < self.sell_custom_stoploss_1.value):
             dataframe, _ = self.dp.get_analyzed_dataframe(pair, self.timeframe)
-            last_candle = dataframe.iloc[-1].squeeze()
+            last_candle = None
+            try:
+                last_candle = dataframe.iloc[-1].squeeze()
+            except:
+                print('Index out of bounds')
             if (last_candle is not None):
                 if (last_candle['sma_200_dec']) & (last_candle['sma_200_dec_1h']):
                     return 0.01
