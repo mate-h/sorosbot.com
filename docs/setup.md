@@ -55,3 +55,11 @@ docker ps -a
 **Step 5.**  
 
 Reconfigure the firewall, open port 443. Edit DNS records for target domain and site is ready.
+Make sure to allow HTTP port 80 as well as 443 in the VPC Firewall settings.
+Turn off automatic HTTPS rewrites in CDN (for example Cloudflare).
+Turn off SSL settings in Cloudflare so that the `nginx-proxy-le` Let's Encrypt certificate can be issues by completing the WKT challenge.
+
+```bash
+docker logs nginx-proxy-le
+```
+After the WKT challenge is complete, port 80 can be closed and SSL can be enabled, as well as auto HTTPS rewrites.
