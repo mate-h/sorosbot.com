@@ -2,6 +2,11 @@
 
 Set up a virtual machine somewhere, for example Google Cloud. Log in with SSH client.
 
+Clone the repo
+```bash
+git clone git@github.com:sorosbot-com/sorosbot.com.git
+```
+
 **Step 2.**  
 
 Install docker for your OS.
@@ -31,6 +36,11 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin
 Copy the env file, configure and run docker.
 ```bash
 cp .env.prod .env
+```
+Create `google-cloud.json` in root dir using service account credentials from GCP.
+
+Run docker.
+```bash
 docker compose up -d
 ```
 Wait for the process to complete, this may take a while as all containers need to be built. I see a need for uploading prebuild images onto a container registry for convenience.
