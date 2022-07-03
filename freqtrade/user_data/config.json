@@ -21,14 +21,14 @@
             "bids_to_ask_delta": 1
         }
     },
+    "exit_profit_only": true,
+    "use_exit_signal": true,
+    "ignore_roi_if_entry_signal": false,
     "ask_strategy": {
         "price_side": "ask",
         "use_order_book": false,
         "order_book_min": 1,
-        "order_book_max": 1,
-        "use_sell_signal": true,
-        "sell_profit_only": false,
-        "ignore_roi_if_buy_signal": false
+        "order_book_max": 1
     },
     "exchange": {
         "name": "binance",
